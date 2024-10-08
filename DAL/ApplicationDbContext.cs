@@ -20,7 +20,7 @@ namespace DAL
 			modelBuilder.Entity<User>()
 				.HasOne(x => x.Card)
 				.WithOne(x => x.Owner)
-				.HasForeignKey<User>(x => x.CardId);
+				.HasForeignKey<User>(x => x.Id);
 			modelBuilder.Entity<Comment>()
 				.HasOne(x => x.Card)
 				.WithMany(x => x.Comments)

@@ -10,7 +10,7 @@ namespace DAL
 
         public ContextManager()
         {
-			_connectionString = Resources.strings.dbConnectionString.Substring(1, Resources.strings.dbConnectionString.Length - 2);
+			_connectionString = Resources.strings.dbConnectionString;
 		}
         public ApplicationDbContext CreateDatabaseContext()
 		{
@@ -19,6 +19,7 @@ namespace DAL
 			var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
 			var options = optionsBuilder
 				.UseNpgsql(_connectionString)
+				.LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information)
 				.Options;
 			
 			return new ApplicationDbContext(options);

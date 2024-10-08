@@ -24,14 +24,18 @@ namespace Bot.Commands
 			
 		}
 
-		private static Client RecognizeUser(Update update)
+		private static async Task<Client> RecognizeUser(Update update)
 		{
-			Client user = new Client();
-			user.Username = update.Message.Chat.Username;
-			user.Id = update.Message.Chat.Id;
-			user.ChatMode = Domain.Enums.ChatMode.GuestPrivate;
+			
 			var repos = new UserRepository(new ContextManager());
-			repos.SaveOrUdate(user);
+			var user = await repos.Find(update.Message.Chat.Id);
+			if (user == null)
+			{
+				user = await repos.CreateNewUser(
+					update.Message.Chat.Id,
+					update.Message.Chat.Username,
+					Domain.Enums.ChatMode.GuestPrivate);
+			}
 			return user;
 		}
 		private static string SelectGreeting(string username)

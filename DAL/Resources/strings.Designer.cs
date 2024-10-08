@@ -61,7 +61,7 @@ namespace DAL.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на &quot;Host=localhost;Username=postgres;Password=admin;Database=Besties&quot;.
+        ///   Ищет локализованную строку, похожую на Host=localhost;Username=postgres;Password=admin;Database=Besties;Include Error Detail=true;.
         /// </summary>
         internal static string dbConnectionString {
             get {

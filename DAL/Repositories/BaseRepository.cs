@@ -49,7 +49,7 @@ namespace DAL.Repositories
 			}
 		}
 
-		public async Task<T> Find(int entityId)
+		public async Task<T> Find(long entityId)
 		{
 			using (var context = CreateDatabaseContext())
 			{

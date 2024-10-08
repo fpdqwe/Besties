@@ -118,6 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="dbConnectionString" xml:space="preserve">
-    <value>"Host=localhost;Username=postgres;Password=admin;Database=Besties"</value>
+    <value>Host=localhost;Username=postgres;Password=admin;Database=Besties;Include Error Detail=true;</value>
   </data>
 </root>

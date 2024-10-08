@@ -21,7 +21,9 @@ namespace Logger
 
 		public static void Log(string message)
 		{
+			Console.ForegroundColor = ConsoleColor.Green;
 			Console.WriteLine($"{message}");
+			Console.ForegroundColor = ConsoleColor.Gray;
 		}
 	}
 }

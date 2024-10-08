@@ -4,7 +4,7 @@
 	{
 		ApplicationDbContext CreateDatabaseContext();
 		Task<List<T>> GetAll();
-		Task<T> Find(int entityId);
+		Task<T> Find(long entityId);
 		Task<T> SaveOrUdate(T entity);
 		Task<T> Add(T entity);
 		Task<T> Update(T entity);
