@@ -6,30 +6,20 @@ namespace Domain.Entities
 {
 	public class Card : IDbEntity
 	{
-		[Key]
+		[DatabaseGenerated(DatabaseGeneratedOption.None)]
 		public long Id { get; set; }
-		[AllowNull]
-		public string Name { get; set; }
-		[AllowNull]
-		public int Age { get; set; }
-		[AllowNull]
-		public string Description { get; set; }
-		[AllowNull]
-		public bool IsSmoking { get; set; }
-		[AllowNull]
-		public bool IsDrinking { get; set; }
-		[AllowNull]
-		public bool AnimalsLover { get; set; }
-		[AllowNull]
-		public int Salary { get; set; }
-		[AllowNull]
-		public int PSELowerBound { get; set; }
-		[AllowNull]
-		public int PSEUpperBound { get; set; }
-		[AllowNull]
-		public bool GreedyMode { get; set; }
-		[AllowNull]
-		public bool HealthyMode { get; set; }
+		public string? Name { get; set; }
+		public int Age { get; set; } = -1;
+		public string? Description { get; set; }
+		public bool IsSmoking { get; set; } = false;
+		public bool IsDrinking { get; set; } = false;
+		public bool AnimalsLover { get; set; } = false;
+		public int Salary { get; set; } = -1;
+		public int PSELowerBound { get; set; } = -1;
+		public int PSEUpperBound { get; set; } = -1;
+		public bool GreedyMode { get; set; } = false;
+		public bool HealthyMode { get; set; } = false;
+		public bool IsActive { get; set; } = false;
 		public User Owner { get; set; }
 		public List<Comment> Comments { get; set; }
 

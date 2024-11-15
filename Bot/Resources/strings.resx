@@ -156,4 +156,58 @@
   <data name="greetingRu5" xml:space="preserve">
     <value>Привет, </value>
   </data>
+  <data name="alcoMarkerPositive" xml:space="preserve">
+    <value>Я пью</value>
+  </data>
+  <data name="alcoMarkerNegative" xml:space="preserve">
+    <value>Я не пью</value>
+  </data>
+  <data name="animalsloverMarkerPositive" xml:space="preserve">
+    <value>Я люблю животных</value>
+  </data>
+  <data name="animalsloverMarkerNegative" xml:space="preserve">
+    <value>Я не люблю животных</value>
+  </data>
+  <data name="smokingMarkerPositive" xml:space="preserve">
+    <value>Я курю</value>
+  </data>
+  <data name="smokingMarkerNegative" xml:space="preserve">
+    <value>Я не курю</value>
+  </data>
+  <data name="healthyModeDescription" xml:space="preserve">
+    <value>поиск людей без вредных привычек (курение, алкоголь)</value>
+  </data>
+  <data name="greedyModeDescription" xml:space="preserve">
+    <value>поиск людей по указанному доходу</value>
+  </data>
+  <data name="makeCardActiveCommand" xml:space="preserve">
+    <value>Включить анкету</value>
+  </data>
+  <data name="makeCardInactiveCommand" xml:space="preserve">
+    <value>Выключить анкету</value>
+  </data>
+  <data name="changeNameCommand" xml:space="preserve">
+    <value>Сменить имя</value>
+  </data>
+  <data name="changeDescriptionCommand" xml:space="preserve">
+    <value>Сменить описание анкеты</value>
+  </data>
+  <data name="changeAgeCommand" xml:space="preserve">
+    <value>Сменить возраст</value>
+  </data>
+  <data name="showMyCardCommand" xml:space="preserve">
+    <value>Показать мою анкету</value>
+  </data>
+  <data name="showMyCardChangesCommand" xml:space="preserve">
+    <value>Показать изменённую анкету</value>
+  </data>
+  <data name="menuEndCommand" xml:space="preserve">
+    <value>Готово!</value>
+  </data>
+  <data name="confirmationPositive" xml:space="preserve">
+    <value>Да, подтверждаю</value>
+  </data>
+  <data name="confirmationNegative" xml:space="preserve">
+    <value>Нет, ещё подумаю</value>
+  </data>
 </root>

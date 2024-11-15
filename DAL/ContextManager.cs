@@ -10,7 +10,7 @@ namespace DAL
 
         public ContextManager()
         {
-			_connectionString = Resources.strings.dbConnectionString;
+			_connectionString = Resources.strings.server2;
 		}
         public ApplicationDbContext CreateDatabaseContext()
 		{

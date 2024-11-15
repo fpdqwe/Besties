@@ -25,6 +25,7 @@ namespace DAL.Repositories
 					throw new ArgumentException("entity should be IDbEntity type", "entity");
 
 				await context.Set<T>().AddAsync(entity);
+				
 				context.SaveChanges();
 			}
 

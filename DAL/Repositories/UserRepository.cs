@@ -17,13 +17,22 @@ namespace DAL.Repositories
 				ChatMode = chatMode,
 				Gender = Gender.Male,
 				Rating = 5,
-				Card = new Card(),
+				Card = new Card()
+				{
+					Id = id,
+					Name = name
+				}
 			};
 			//result.Card.Id = id;
 			
 			
 			await Add(result);
-
+			using (var context = CreateDatabaseContext())
+			{
+				var newUser = context.Users.OrderByDescending(x => x.Id).FirstOrDefault();
+				newUser.Id = id;
+				await Update(newUser);
+			}
 			return result;
         }
 	}

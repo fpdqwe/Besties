@@ -61,11 +61,101 @@ namespace Bot.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Я не пью.
+        /// </summary>
+        internal static string alcoMarkerNegative {
+            get {
+                return ResourceManager.GetString("alcoMarkerNegative", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Я пью.
+        /// </summary>
+        internal static string alcoMarkerPositive {
+            get {
+                return ResourceManager.GetString("alcoMarkerPositive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Я не люблю животных.
+        /// </summary>
+        internal static string animalsloverMarkerNegative {
+            get {
+                return ResourceManager.GetString("animalsloverMarkerNegative", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Я люблю животных.
+        /// </summary>
+        internal static string animalsloverMarkerPositive {
+            get {
+                return ResourceManager.GetString("animalsloverMarkerPositive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на 2130370689:AAFG7q1kKssieObubR8I1UcY4VxaWTs1xw4.
         /// </summary>
         internal static string botToken {
             get {
                 return ResourceManager.GetString("botToken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Сменить возраст.
+        /// </summary>
+        internal static string changeAgeCommand {
+            get {
+                return ResourceManager.GetString("changeAgeCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Сменить описание анкеты.
+        /// </summary>
+        internal static string changeDescriptionCommand {
+            get {
+                return ResourceManager.GetString("changeDescriptionCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Сменить имя.
+        /// </summary>
+        internal static string changeNameCommand {
+            get {
+                return ResourceManager.GetString("changeNameCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Нет, ещё подумаю.
+        /// </summary>
+        internal static string confirmationNegative {
+            get {
+                return ResourceManager.GetString("confirmationNegative", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Да, подтверждаю.
+        /// </summary>
+        internal static string confirmationPositive {
+            get {
+                return ResourceManager.GetString("confirmationPositive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на поиск людей по указанному доходу.
+        /// </summary>
+        internal static string greedyModeDescription {
+            get {
+                return ResourceManager.GetString("greedyModeDescription", resourceCulture);
             }
         }
         
@@ -174,6 +264,78 @@ namespace Bot.Resources {
         internal static string greetingRu5 {
             get {
                 return ResourceManager.GetString("greetingRu5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на поиск людей без вредных привычек (курение, алкоголь).
+        /// </summary>
+        internal static string healthyModeDescription {
+            get {
+                return ResourceManager.GetString("healthyModeDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Включить анкету.
+        /// </summary>
+        internal static string makeCardActiveCommand {
+            get {
+                return ResourceManager.GetString("makeCardActiveCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Выключить анкету.
+        /// </summary>
+        internal static string makeCardInactiveCommand {
+            get {
+                return ResourceManager.GetString("makeCardInactiveCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Готово!.
+        /// </summary>
+        internal static string menuEndCommand {
+            get {
+                return ResourceManager.GetString("menuEndCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Показать изменённую анкету.
+        /// </summary>
+        internal static string showMyCardChangesCommand {
+            get {
+                return ResourceManager.GetString("showMyCardChangesCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Показать мою анкету.
+        /// </summary>
+        internal static string showMyCardCommand {
+            get {
+                return ResourceManager.GetString("showMyCardCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Я не курю.
+        /// </summary>
+        internal static string smokingMarkerNegative {
+            get {
+                return ResourceManager.GetString("smokingMarkerNegative", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Я курю.
+        /// </summary>
+        internal static string smokingMarkerPositive {
+            get {
+                return ResourceManager.GetString("smokingMarkerPositive", resourceCulture);
             }
         }
     }

@@ -63,9 +63,18 @@ namespace DAL.Resources {
         /// <summary>
         ///   Ищет локализованную строку, похожую на Host=localhost;Username=postgres;Password=admin;Database=Besties;Include Error Detail=true;.
         /// </summary>
-        internal static string dbConnectionString {
+        internal static string server1 {
             get {
-                return ResourceManager.GetString("dbConnectionString", resourceCulture);
+                return ResourceManager.GetString("server1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Host=localhost;Username=postgres;Password=YCZ1J7_Ww-;Database=Besties;Include Error Detail=true;.
+        /// </summary>
+        internal static string server2 {
+            get {
+                return ResourceManager.GetString("server2", resourceCulture);
             }
         }
     }

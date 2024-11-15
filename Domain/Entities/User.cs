@@ -6,7 +6,7 @@ namespace Domain.Entities
 {
 	public class User : IDbEntity
 	{
-		[Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
+		[DatabaseGenerated(DatabaseGeneratedOption.None)]
 		public long Id { get; set; }
 		[Required]
 		public string Username { get; set; }
