@@ -10,6 +10,7 @@ namespace Bot
 		private static readonly ContextManager _contextManager = new ContextManager();
 		private static readonly UserRepository _userRepository = new UserRepository(_contextManager);
 		private static readonly CardRepository _cardRepository = new CardRepository(_contextManager);
+		private static readonly OfferRepository _offerRepository = new OfferRepository(_contextManager);
 		private readonly List<Chat> _chats;
 		public List<Chat> Chats { get { return _chats; } }
 
@@ -27,7 +28,7 @@ namespace Bot
 		/// <param name="makeActive">Активировать чат, если он не будет найден</param>
 		/// <returns></returns>
 		/// <exception cref="Exception">Выбрасывается если makeActive = false, при этом искомый чат не активен</exception>
-        public async Task<Chat> Find(long id, string username, bool makeActive = true)
+        public async Task<Chat> Find(long id, string username = null, bool makeActive = true)
 		{
 			if (makeActive)
 			{
@@ -52,11 +53,13 @@ namespace Bot
 		}
 		public async Task<Card> GetOffer(Chat sender)
 		{
-			try
-			{
-				return await FindRandomCard(sender.SearchScopes);
-			}
-			catch (Exception ex) { throw ex; }
+			
+			var result = await FindRandomCard(sender.Card, sender.SearchScopes);
+			return result;
+		}
+		public async Task<Card> GetOfferSender (long id)
+		{
+			return await FindCardByUserId(id);
 		}
 		private async Task<Chat> CreateNewChat(User user)
 		{
@@ -75,7 +78,14 @@ namespace Bot
 		private async Task<User> RecognizeUser(long ChatId, string username)
 		{
 			var user = await _userRepository.Find(ChatId);
-			if (user == null)
+			if (user == null && username == null)
+			{
+				user = await _userRepository.CreateNewUser(
+					ChatId,
+					ChatId.ToString(),
+					Domain.Enums.ChatMode.GuestPrivate);
+			}
+			if (user == null && username != null)
 			{
 				user = await _userRepository.CreateNewUser(
 					ChatId,
@@ -91,17 +101,28 @@ namespace Bot
 			if (card == null) throw new Exception("А какого хуя у тебя карточка не создалась то епт");
 			return card;
 		}
-		private async Task<Card> FindRandomCard(SearchScopes scopes)
+		private async Task<Card> FindRandomCard(Card card, SearchScopes scopes)
 		{
-			var list = await _cardRepository.GetAll();
-			foreach (var card in list)
+			var offerList = await _cardRepository.GetCardsForSearch(card);
+			foreach (var offer in offerList)
 			{
+				bool notSkipped = true;
 				foreach (var scope in scopes.SkippedIds)
 				{
-					if (card.Id != scope) return card;
+					if (offer.Id == scope) notSkipped = false;	
 				}
+				if (notSkipped) return offer;
+				else return null;
 			}
-			throw new Exception();
+			throw new Exception("Something went wrong in candidate search");
+		}
+		private async Task<List<Offer>> GetUncheckedOffers(long recipientId)
+		{
+			return await _offerRepository.GetOffersByRecepientId(recipientId);
+		}
+		public async Task SaveOffer(Offer offer)
+		{
+			_offerRepository.SaveOrUdate(offer);
 		}
 		public static async Task ApplyCardChanges(Chat chat)
 		{

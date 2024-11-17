@@ -7,14 +7,24 @@ namespace Logger
 	{
 		static void Main(string[] args)
 		{
-			var bot = Bot.Program.Init();
 			MessageHandler.Log += Log;
+			var bot = Bot.Program.Init();
+			
 			var m = new ContextManager();
 			var c = m.CreateDatabaseContext();
 			while (true)
 			{
 				var command = Console.ReadLine();
-				if (command == "/exit") { break; }
+				switch (command) {
+					case "/exit":
+						Console.WriteLine("Shutdown command confirmed");
+						return;
+					case "/currentSessions":
+						Console.WriteLine(command);
+						MessageHandler.ChatManager.Chats
+							.ForEach(chat => Console.WriteLine($"Session #{chat.Id}; user - {chat.Id}({chat.Card.Name})"));
+						break;
+				}
 			}
 
 		}

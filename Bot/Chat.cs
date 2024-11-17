@@ -45,6 +45,10 @@ namespace Bot
         {
             IsActive = active;
         }
+        public string GetUserLink()
+        {
+            return $"tg://user?id={Id}";
+        }
 
 		// Chat expiration logic
 		public void StartTimer()
@@ -86,7 +90,7 @@ namespace Bot
         // Chatting logic
         public void OnMessageReceived(ITelegramBotClient client, string message)
         {
-            MessageHandler.LogMessage($"Chat {Id} got new message: \"{message}\" type of {message.GetType}");
+            MessageHandler.LogMessage($"Chat {Id} got new message: \"{message}\" type of {message.GetType}; Reply - {_nextReply.Method.Name}");
             if (_awaitCommand) MessageHandler.LogMessage($"Message in chat {Id} was ignored because of: command expected");
             _nextReply.Invoke(client, this, message);
             ResetTimer();

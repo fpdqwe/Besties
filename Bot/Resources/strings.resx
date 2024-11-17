@@ -120,24 +120,6 @@
   <data name="botToken" xml:space="preserve">
     <value>2130370689:AAFG7q1kKssieObubR8I1UcY4VxaWTs1xw4</value>
   </data>
-  <data name="greetingEng1" xml:space="preserve">
-    <value>Hello, </value>
-  </data>
-  <data name="greetingEng2" xml:space="preserve">
-    <value>Welcome, </value>
-  </data>
-  <data name="greetingEng3" xml:space="preserve">
-    <value>Hi there, </value>
-  </data>
-  <data name="greetingEng4" xml:space="preserve">
-    <value>Great to see you, </value>
-  </data>
-  <data name="greetingEng5" xml:space="preserve">
-    <value>Nice to heave you here, </value>
-  </data>
-  <data name="greetingHookEng" xml:space="preserve">
-    <value>First you need to create a questionnaire...</value>
-  </data>
   <data name="greetingHookRu" xml:space="preserve">
     <value>Для начала нужно создать анкету...</value>
   </data>
@@ -161,12 +143,6 @@
   </data>
   <data name="alcoMarkerNegative" xml:space="preserve">
     <value>Я не пью</value>
-  </data>
-  <data name="animalsloverMarkerPositive" xml:space="preserve">
-    <value>Я люблю животных</value>
-  </data>
-  <data name="animalsloverMarkerNegative" xml:space="preserve">
-    <value>Я не люблю животных</value>
   </data>
   <data name="smokingMarkerPositive" xml:space="preserve">
     <value>Я курю</value>
@@ -209,5 +185,23 @@
   </data>
   <data name="confirmationNegative" xml:space="preserve">
     <value>Нет, ещё подумаю</value>
+  </data>
+  <data name="menuText" xml:space="preserve">
+    <value>Итак, что вы хотите сделать?</value>
+  </data>
+  <data name="searchCommand" xml:space="preserve">
+    <value>Поиск</value>
+  </data>
+  <data name="searchParamsCommand" xml:space="preserve">
+    <value>Параметры поиска</value>
+  </data>
+  <data name="cardEditCommand" xml:space="preserve">
+    <value>Редактировать мою анкету</value>
+  </data>
+  <data name="regionsXmlPath" xml:space="preserve">
+    <value>C:\Users\fpdcore\Source\Repos\fpdqwe\Besties\Bot\Resources\Regions.xml</value>
+  </data>
+  <data name="resourcesPath" xml:space="preserve">
+    <value>C:\Users\fpdcore\Source\Repos\fpdqwe\Besties\Bot\Resources\</value>
   </data>
 </root>

@@ -79,29 +79,20 @@ namespace Bot.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Я не люблю животных.
-        /// </summary>
-        internal static string animalsloverMarkerNegative {
-            get {
-                return ResourceManager.GetString("animalsloverMarkerNegative", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Я люблю животных.
-        /// </summary>
-        internal static string animalsloverMarkerPositive {
-            get {
-                return ResourceManager.GetString("animalsloverMarkerPositive", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Ищет локализованную строку, похожую на 2130370689:AAFG7q1kKssieObubR8I1UcY4VxaWTs1xw4.
         /// </summary>
         internal static string botToken {
             get {
                 return ResourceManager.GetString("botToken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Редактировать мою анкету.
+        /// </summary>
+        internal static string cardEditCommand {
+            get {
+                return ResourceManager.GetString("cardEditCommand", resourceCulture);
             }
         }
         
@@ -156,60 +147,6 @@ namespace Bot.Resources {
         internal static string greedyModeDescription {
             get {
                 return ResourceManager.GetString("greedyModeDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Hello, .
-        /// </summary>
-        internal static string greetingEng1 {
-            get {
-                return ResourceManager.GetString("greetingEng1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Welcome, .
-        /// </summary>
-        internal static string greetingEng2 {
-            get {
-                return ResourceManager.GetString("greetingEng2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Hi there, .
-        /// </summary>
-        internal static string greetingEng3 {
-            get {
-                return ResourceManager.GetString("greetingEng3", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Great to see you, .
-        /// </summary>
-        internal static string greetingEng4 {
-            get {
-                return ResourceManager.GetString("greetingEng4", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Nice to heave you here, .
-        /// </summary>
-        internal static string greetingEng5 {
-            get {
-                return ResourceManager.GetString("greetingEng5", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на First you need to create a questionnaire....
-        /// </summary>
-        internal static string greetingHookEng {
-            get {
-                return ResourceManager.GetString("greetingHookEng", resourceCulture);
             }
         }
         
@@ -300,6 +237,51 @@ namespace Bot.Resources {
         internal static string menuEndCommand {
             get {
                 return ResourceManager.GetString("menuEndCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Итак, что вы хотите сделать?.
+        /// </summary>
+        internal static string menuText {
+            get {
+                return ResourceManager.GetString("menuText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на C:\Users\fpdcore\Source\Repos\fpdqwe\Besties\Bot\Resources\Regions.xml.
+        /// </summary>
+        internal static string regionsXmlPath {
+            get {
+                return ResourceManager.GetString("regionsXmlPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на C:\Users\fpdcore\Source\Repos\fpdqwe\Besties\Bot\Resources\.
+        /// </summary>
+        internal static string resourcesPath {
+            get {
+                return ResourceManager.GetString("resourcesPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Поиск.
+        /// </summary>
+        internal static string searchCommand {
+            get {
+                return ResourceManager.GetString("searchCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Параметры поиска.
+        /// </summary>
+        internal static string searchParamsCommand {
+            get {
+                return ResourceManager.GetString("searchParamsCommand", resourceCulture);
             }
         }
         

@@ -1,4 +1,5 @@
-﻿using Telegram.Bot;
+﻿using System.Resources;
+using Telegram.Bot;
 using Telegram.Bot.Polling;
 
 namespace Bot
@@ -10,18 +11,22 @@ namespace Bot
 			using var cts = new CancellationTokenSource();
 			var botToken = Resources.strings.botToken;
 			var bot = new TelegramBotClient(botToken);
-
+			
 			var ro = new ReceiverOptions
 			{
 				AllowedUpdates = []
 			};
 
+			Utilities.ResourceReader.InitReader();
+
 			bot.StartReceiving(
+				
 				MessageHandler.DefaultHandler,
 				MessageHandler.ErrorHandler,
 				ro,
 				cts.Token
 				);
+			
 			return bot;
 		}
 	}

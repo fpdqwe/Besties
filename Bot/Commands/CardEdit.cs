@@ -1,4 +1,5 @@
 ﻿using Bot.Resources;
+using Bot.Utilities;
 using Domain.Entities;
 using System.Text;
 using Telegram.Bot;
@@ -9,9 +10,14 @@ namespace Bot.Commands
 	public static class CardEdit
 	{
 		// Methods
+		public static async Task InitCardEditMode(ITelegramBotClient botClient, Chat sender)
+		{
+			await botClient.SendTextMessageAsync(sender.Id, "Чтож, давай отредактируем твою анкету!\nДля начала введи свой возраст");
+			if (sender.NewCard == null) OnEnteringCardEditMode(sender);
+			sender.SetReply(OnCardAgeChange);
+		}
 		public static async Task OnCardAgeChange(ITelegramBotClient botClient, Chat sender, string message)
 		{
-			if (sender.NewCard == null) OnEnteringCardEditMode(sender);
 			int age = sender.Card.Age;
 			if(int.TryParse(message, out age))
 			{
@@ -23,13 +29,59 @@ namespace Bot.Commands
 				else
 				{
 					await botClient.SendTextMessageAsync(sender.Id, $"Ваш возраст теперь {age} вместо {sender.Card.Age}");
-					await botClient.SendTextMessageAsync(sender.Id, "Теперь введите ваше имя");
+					await botClient.SendTextMessageAsync(sender.Id, "Теперь определимся с полом", replyMarkup: GetGenderMarkup());
 					sender.NewCard.Age = age;
-					sender.SetReply(AwaitNameChange);
+					sender.SetReply(OnGenderChange);
 					return;
 				}
 			}
 			await botClient.SendTextMessageAsync(sender.Id, "Не удалость перевести возраст в число :(");
+		}
+		public static async Task OnGenderChange(ITelegramBotClient botClient, Chat sender, string message)
+		{
+			switch (message)
+			{
+				case "Я парень":
+					sender.NewCard.Gender = Gender.Male;
+					break;
+				case "Я девушка":
+					sender.NewCard.Gender = Gender.Female;
+					break;
+				case "Не указывать":
+					sender.NewCard.Gender = Gender.NotSpecified;
+					break;
+				default:
+					sender.NewCard.Gender = Gender.NotSpecified;
+					break;
+			}
+
+			await botClient.SendTextMessageAsync(sender.Id, "Кого ищешь?", replyMarkup:GetTargetGenderMarkup());
+			sender.SetReply(OnTargetGenderChange);
+		}
+		public static async Task OnTargetGenderChange(ITelegramBotClient botClient, Chat sender, string message)
+		{
+			switch (message)
+			{
+				case "Ищу парня":
+					sender.NewCard.TargetGender = Gender.Male;
+					break;
+				case "Ищу девушку":
+					sender.NewCard.TargetGender = Gender.Female;
+					break;
+				default:
+					sender.NewCard.TargetGender = Gender.NotSpecified;
+					break;
+			}
+
+			await botClient.SendTextMessageAsync(sender.Id, "Из какого ты города?");
+			sender.SetReply(OnRegionChange);
+		}
+		public static async Task OnRegionChange(ITelegramBotClient botClient, Chat sender, string message)
+		{
+			var region = ResourceReader.GetRegion(message);
+			sender.NewCard.Region = region;
+			await botClient.SendTextMessageAsync(sender.Id, "Как тебя зовут?", replyMarkup: null);
+			sender.SetReply(AwaitNameChange);
 		}
 		public static async Task AwaitDescriptionChange(ITelegramBotClient botClient, Chat sender, string message)
 		{
@@ -64,29 +116,15 @@ namespace Bot.Commands
 			}
 			if(message == strings.smokingMarkerNegative)
 			{
-				sender.NewCard.IsDrinking = false;
+				sender.NewCard.IsSmoking = false;
 				await botClient.SendTextMessageAsync(sender.Id, "Сильно...",
 					replyMarkup: GetHabbitsMarkup(sender.NewCard));
 				return;
 			}
 			if(message == strings.smokingMarkerPositive)
 			{
-				sender.NewCard.IsDrinking = true;
+				sender.NewCard.IsSmoking = true;
 				await botClient.SendTextMessageAsync(sender.Id, "Учтено",
-					replyMarkup: GetHabbitsMarkup(sender.NewCard));
-				return;
-			}
-			if(message == strings.animalsloverMarkerNegative)
-			{
-				sender.NewCard.AnimalsLover = false;
-				await botClient.SendTextMessageAsync(sender.Id, "Ну и не надо",
-					replyMarkup: GetHabbitsMarkup(sender.NewCard));
-				return;
-			}
-			if(message == strings.animalsloverMarkerPositive)
-			{
-				sender.NewCard.AnimalsLover = true;
-				await botClient.SendTextMessageAsync(sender.Id, "Для кого-то это знак, что вы добрый",
 					replyMarkup: GetHabbitsMarkup(sender.NewCard));
 				return;
 			}
@@ -121,9 +159,9 @@ namespace Bot.Commands
 			}
 			if (message == strings.confirmationPositive)
 			{
-				await botClient.SendTextMessageAsync(sender.Id, "Замечательно, теперь в бой!");
+				await botClient.SendTextMessageAsync(sender.Id, "Изменения подтверждены");
 				await OnCardEditCompleted(sender);
-				sender.SetReply(Search.OfferCandidate);
+				await MessageHandler.SendMenu(botClient, sender);
 			}
 		}
 		public static async Task SendCardPreview(ITelegramBotClient botClient, Chat sender)
@@ -131,6 +169,31 @@ namespace Bot.Commands
 			var sb = new StringBuilder();
 			sb.AppendLine($"Имя: {sender.NewCard.Name}");
 			sb.AppendLine($"Возраст: {sender.NewCard.Age}");
+			switch (sender.NewCard.Gender)
+			{
+				case Gender.Male:
+					sb.AppendLine("Пол: мужской");
+					break;
+				case Gender.Female:
+					sb.AppendLine("Пол: женский");
+					break;
+				default:
+					sb.AppendLine("Пол: засекречен");
+					break;
+			}
+			switch (sender.NewCard.TargetGender)
+			{
+				case Gender.Male:
+					sb.AppendLine("Пол партнёра: мужской");
+					break;
+				case Gender.Female:
+					sb.AppendLine("Пол партнёра: женский");
+					break;
+				case Gender.NotSpecified:
+					sb.AppendLine("Пол партнёра: не принципиально");
+					break;
+			}
+			sb.AppendLine($"Регион - {sender.NewCard.Region}");
 			sb.AppendLine("==========");
 			sb.AppendLine($"Описание: {sender.NewCard.Description}");
 			sb.AppendLine("==========");
@@ -144,18 +207,18 @@ namespace Bot.Commands
 		// Keyboard Markups
 		private static ReplyKeyboardMarkup GetHabbitsMarkup(Card card)
 		{
-			var btns = new KeyboardButton[4];
+			var btns = new KeyboardButton[3];
 
 			if (card.IsDrinking) btns[0] = new KeyboardButton(strings.alcoMarkerNegative);
 			else btns[0] = new KeyboardButton(strings.alcoMarkerPositive);
 			if (card.IsSmoking) btns[1] = new KeyboardButton(strings.smokingMarkerNegative);
 			else btns[1] = new KeyboardButton(strings.smokingMarkerPositive);
-			if (card.AnimalsLover) btns[2] = new KeyboardButton(strings.animalsloverMarkerNegative);
-			else btns[2] = new KeyboardButton(strings.animalsloverMarkerPositive);
-			btns[3] = new KeyboardButton(strings.menuEndCommand);
+			btns[2] = new KeyboardButton(strings.menuEndCommand);
 
 
 			var result = new ReplyKeyboardMarkup(btns);
+			result.ResizeKeyboard = true;
+			result.OneTimeKeyboard = true;
 			return result;
 		}
 		private static ReplyKeyboardMarkup GetConfirmMarkup()
@@ -165,9 +228,40 @@ namespace Bot.Commands
 				strings.confirmationPositive,
 				strings.confirmationNegative,
 			};
+
+			var result = new ReplyKeyboardMarkup(btns);
+			result.ResizeKeyboard = true;
+			result.OneTimeKeyboard = true;
 			return new ReplyKeyboardMarkup(btns);
 		}
+		private static ReplyKeyboardMarkup GetGenderMarkup()
+		{
+			var btns = new KeyboardButton[]
+			{
+				"Я парень",
+				"Я девушка",
+				"Не указывать"
+			};
 
+			var result = new ReplyKeyboardMarkup(btns);
+			result.ResizeKeyboard = true;
+			result.OneTimeKeyboard = true;
+			return result;
+		}
+		private static ReplyKeyboardMarkup GetTargetGenderMarkup()
+		{
+			var btns = new KeyboardButton[]
+			{
+				"Ищу парня",
+				"Ищу девушку",
+				"Не принципиально"
+			};
+
+			var result = new ReplyKeyboardMarkup(btns);
+			result.ResizeKeyboard = true;
+			result.OneTimeKeyboard = true;
+			return new ReplyKeyboardMarkup(btns);
+		}
 		// Utils
 		private static string GetHabbits(Card card, bool withPrefix = true)
 		{
@@ -180,8 +274,6 @@ namespace Bot.Commands
 			else sb.AppendLine("Не употребляете алкоголь");
 			if (card.IsSmoking) sb.AppendLine("Употребляете никотин");
 			else sb.AppendLine("Употребляете никотин");
-			if (card.AnimalsLover) sb.AppendLine("Любите животных");
-			else sb.AppendLine("Не любите животных");
 
             if (withPrefix) sb.AppendLine("Подтверждаем?");
 
@@ -195,12 +287,7 @@ namespace Bot.Commands
 				Age = chat.Card.Age,
 				Description = chat.Card.Description,
 				IsDrinking = chat.Card.IsDrinking,
-				IsSmoking = chat.Card.IsSmoking,
-				AnimalsLover = chat.Card.AnimalsLover,
-				Salary = chat.Card.Salary,
-				PSELowerBound = chat.Card.PSELowerBound,
-				PSEUpperBound = chat.Card.PSEUpperBound,
-				GreedyMode = chat.Card.GreedyMode,
+				IsSmoking = chat.Card.IsSmoking,		
 				HealthyMode = chat.Card.HealthyMode,
 				IsActive = false
 			};

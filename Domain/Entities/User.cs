@@ -12,7 +12,6 @@ namespace Domain.Entities
 		public string Username { get; set; }
 		[Required]
 		public ChatMode ChatMode { get; set; }
-		public Gender Gender { get; set; }
 		public Card Card { get; set; }
 		public double Rating { get; set; }
 

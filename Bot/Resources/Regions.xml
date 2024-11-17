@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<root>
+	<Region Id="1" Name="Москва и Московская область">москва</Region>
+	<Region Id="2" Name="Питер">питер</Region>
+	<Region Id="3" Name="Новосибирск">новосибирск</Region>
+	<Region Id="4" Name="Екатеринбург">екатеринбург</Region>
+	<Region Id="5" Name="Казань">казань</Region>
+	<Region Id="6" Name="Нижний Новгород">нижний новгород</Region>
+	<Region Id="7" Name="Красноярск">красноярск</Region>
+	<Region Id="8" Name="Челябинск">челябинск</Region>
+	<Region Id="9" Name="Самара">самара</Region>
+	<Region Id="10" Name="Уфа">уфа</Region>
+	<Region Id="11" Name="Ростов-на-Дону">ростов-на-дону</Region>
+	<Region Id="12" Name="Краснодар">краснодар</Region>
+	<Region Id="13" Name="Омск">омск</Region>
+	<Region Id="14" Name="Воронеж">воронеж</Region>
+	<Region Id="15" Name="Пермь">пермь</Region>
+	<Region Id="16" Name="Волгоград">волгорад</Region>
+</root>
