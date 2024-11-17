@@ -214,6 +214,15 @@ namespace Bot.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на C:\Users\fpdcore\Source\Repos\fpdqwe\Besties\Bot\Resources\Images\.
+        /// </summary>
+        internal static string imagesPath {
+            get {
+                return ResourceManager.GetString("imagesPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Включить анкету.
         /// </summary>
         internal static string makeCardActiveCommand {

@@ -3,6 +3,7 @@ using Bot.Utilities;
 using Domain.Entities;
 using System.Text;
 using Telegram.Bot;
+using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
 
 namespace Bot.Commands
@@ -73,7 +74,7 @@ namespace Bot.Commands
 					break;
 			}
 
-			await botClient.SendTextMessageAsync(sender.Id, "Из какого ты города?");
+			await botClient.SendTextMessageAsync(sender.Id, "Из какого ты города?", replyMarkup:null);
 			sender.SetReply(OnRegionChange);
 		}
 		public static async Task OnRegionChange(ITelegramBotClient botClient, Chat sender, string message)
@@ -97,6 +98,24 @@ namespace Bot.Commands
 			sender.NewCard.Name = message;
 			await botClient.SendTextMessageAsync(sender.Id, "Теперь самое главное - описание вашей анкеты. Расскажите немного о себе.");
 			sender.SetReply(AwaitDescriptionChange);
+		}
+		public static async Task AwaitPhotoChange(ITelegramBotClient botClient, Chat sender, PhotoSize[] photo)
+		{
+			if(photo == null) { return; }
+			var photoPath = await botClient.GetFileAsync(photo[photo.Length - 1].FileId);
+			
+			CardMedia cardMedia = new CardMedia();
+			cardMedia.Id = sender.Id;
+
+			using (var memoryStream = new MemoryStream())
+			{
+				await botClient.DownloadFileAsync(photoPath.FilePath, memoryStream);
+				memoryStream.Seek(0, SeekOrigin.Begin);
+				cardMedia.Image = memoryStream.ToArray();
+			}
+
+			await MessageHandler.ChatManager.SaveCardPhoto(cardMedia);
+			botClient.SendTextMessageAsync(sender.Id, "Фото успешно изменено");
 		}
 		public static async Task AwaitHabbitsCommand(ITelegramBotClient botClient, Chat sender, string message)
 		{
@@ -166,6 +185,7 @@ namespace Bot.Commands
 		}
 		public static async Task SendCardPreview(ITelegramBotClient botClient, Chat sender)
 		{
+			var media = await MessageHandler.ChatManager.GetCardPhoto(sender.Id);
 			var sb = new StringBuilder();
 			sb.AppendLine($"Имя: {sender.NewCard.Name}");
 			sb.AppendLine($"Возраст: {sender.NewCard.Age}");
@@ -199,10 +219,12 @@ namespace Bot.Commands
 			sb.AppendLine("==========");
 			sb.AppendLine(GetHabbits(sender.NewCard, false));
 			sb.AppendLine("==========");
-			sb.AppendLine();
 			sb.AppendLine("Подтверждаем?");
-
-			await botClient.SendTextMessageAsync(sender.Id, sb.ToString(), replyMarkup:GetConfirmMarkup());
+			using (var memoryStream = new MemoryStream(media.Image)) {
+				var file = new InputFileStream(memoryStream, $"{media.Id}.jpg");
+				await botClient.SendPhotoAsync(sender.Id, file, caption: sb.ToString(), replyMarkup: GetConfirmMarkup());
+				
+			}
 		}
 		// Keyboard Markups
 		private static ReplyKeyboardMarkup GetHabbitsMarkup(Card card)
@@ -263,7 +285,7 @@ namespace Bot.Commands
 			return new ReplyKeyboardMarkup(btns);
 		}
 		// Utils
-		private static string GetHabbits(Card card, bool withPrefix = true)
+		public static string GetHabbits(Card card, bool withPrefix = true)
 		{
 			var sb = new StringBuilder();
 

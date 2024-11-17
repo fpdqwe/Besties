@@ -6,6 +6,7 @@ namespace DAL
 {
 	public class ApplicationDbContext : DbContext
 	{
+		private static DbContextOptions<ApplicationDbContext> _options = ContextManager.GetContextOptions();
 		public DbSet<User> Users { get; set; }
 		public DbSet<Card> Cards { get; set; }
 		public DbSet<Comment> Comments { get; set; }
@@ -14,6 +15,10 @@ namespace DAL
 		public DbSet<CardMedia> CardMedia { get; set; }
 
 		public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+		{
+			Database.EnsureCreated();
+		}
+		public ApplicationDbContext() : base(_options)
 		{
 			Database.EnsureCreated();
 		}

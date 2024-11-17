@@ -204,4 +204,7 @@
   <data name="resourcesPath" xml:space="preserve">
     <value>C:\Users\fpdcore\Source\Repos\fpdqwe\Besties\Bot\Resources\</value>
   </data>
+  <data name="imagesPath" xml:space="preserve">
+    <value>C:\Users\fpdcore\Source\Repos\fpdqwe\Besties\Bot\Resources\Images\</value>
+  </data>
 </root>

@@ -2,6 +2,7 @@
 using DAL;
 using DAL.Repositories;
 using Domain.Entities;
+using System.Resources;
 
 namespace Bot
 {
@@ -123,6 +124,14 @@ namespace Bot
 		public async Task SaveOffer(Offer offer)
 		{
 			_offerRepository.SaveOrUdate(offer);
+		}
+		public async Task<CardMedia> GetCardPhoto(long id)
+		{
+			return await Utilities.ResourceReader.GetImage(id);
+		}
+		public async Task SaveCardPhoto(CardMedia media)
+		{
+			Utilities.ResourceReader.SaveImage(media);
 		}
 		public static async Task ApplyCardChanges(Chat chat)
 		{

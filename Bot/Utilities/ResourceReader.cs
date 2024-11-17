@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Xml;
 using Bot.Resources;
+using Domain.Entities;
 
 namespace Bot.Utilities
 {
@@ -18,13 +19,6 @@ namespace Bot.Utilities
 			_regions.TryGetValue(region.ToLower(), out result);
 			return result;
 		}
-
-		//public static string GetRegionName()
-		//{
-		//	if (IsInitialized == false) InitReader();
-
-			
-		//}
 		public static void InitReader()
 		{
 			var st = new Stopwatch();
@@ -34,6 +28,19 @@ namespace Bot.Utilities
 			isInitialized = true;
 			st.Stop();
 			MessageHandler.LogMessage($"Bot.Utilities.ResourceReader initializied in {st.ElapsedMilliseconds} ms.");
+		}
+
+		public static async Task SaveImage(CardMedia media)
+		{
+			await File.WriteAllBytesAsync(strings.imagesPath + $"{media.Id}.jpg", media.Image);
+		}
+		public static async Task<CardMedia> GetImage(long id)
+		{
+			CardMedia media = new CardMedia();
+			media.Id = id;
+
+			media.Image = await File.ReadAllBytesAsync(strings.imagesPath + $"{media.Id}.jpg");
+			return media;
 		}
 		private static Dictionary<string, byte> GetRegions()
 		{

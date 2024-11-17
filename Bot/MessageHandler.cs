@@ -4,6 +4,8 @@ using Telegram.Bot.Types.Enums;
 using Bot.Commands;
 using Bot.Resources;
 using Telegram.Bot.Types.ReplyMarkups;
+using Domain.Entities;
+using System.Text;
 
 namespace Bot
 {
@@ -43,25 +45,8 @@ namespace Bot
 			
 			Log?.Invoke($"Receive message type {message.Type} in chat {message.Chat.Id}; {message.From.Username};");
 			
-			if (message.Type == MessageType.Photo)
-			{
-				foreach(var file in message.Photo)
-				{
-					var photo = await client.GetFileAsync(file.FileId);
-					
-					using (var stream = new FileStream(strings.resourcesPath + $"{photo.FileId}.jpg",
-						FileMode.CreateNew, FileAccess.Write))
-					{
-						await client.DownloadFileAsync(photo.FilePath, stream);
-						
-						// await client.SendPhotoAsync(message.From.Id, photo, caption: "копия");
-					}
-					
-					
-				}
-
-			}
-			if (message.Type != MessageType.Text) return;
+			
+			if (message.Type != MessageType.Text && message.Type != MessageType.Photo) return;
 
 			var chat = await ChatManager.Find(message.Chat.Id, message.Chat.Username);
 
@@ -71,7 +56,26 @@ namespace Bot
 				chat.SetReply(AwaitMenuAction);
 				return;
 			}
+			if (message.Type == MessageType.Photo)
+			{
+				//foreach(var file in message.Photo)
+				//{
+				//	var photo = await client.GetFileAsync(file.FileId);
 
+				//	using (var stream = new FileStream(strings.resourcesPath + $"{photo.FileId}.jpg",
+				//		FileMode.CreateNew, FileAccess.Write))
+				//	{
+				//		await client.DownloadFileAsync(photo.FilePath, stream);
+
+				//		await client.SendPhotoAsync(message.From.Id, photo, caption: "копия");
+				//	}
+				//}
+				foreach (var photo in message.Photo)
+				{
+					Log?.Invoke($"Photo uploaded in chat {chat.Id}! {photo.FileId}; {photo.FileUniqueId}; {photo.FileSize}");
+				}
+				CardEdit.AwaitPhotoChange(client, chat, message.Photo);
+			}
 			switch (message.Text)
 			{
 				case "/start":
@@ -131,11 +135,9 @@ namespace Bot
 				}
 				Search.OfferCandidate(client, sender);
 			}
-			if(message == strings.searchParamsCommand)
+			if(message == strings.showMyCardCommand)
 			{
-				// Nado dodelat'
-				await client.SendTextMessageAsync(sender.Id, "Функция пока не доступна");
-				await SendMenu(client, sender);
+				await SendCardPreview(client, sender);
 			}
 			if(message == strings.cardEditCommand)
 			{
@@ -153,13 +155,57 @@ namespace Bot
 		{
 			Log?.Invoke($"{message}");
 		}
+		public static async Task SendCardPreview(ITelegramBotClient botClient, Chat sender)
+		{
+			var media = await ChatManager.GetCardPhoto(sender.Id);
+			var sb = new StringBuilder();
+			sb.AppendLine($"Имя: {sender.Card.Name}");
+			sb.AppendLine($"Возраст: {sender.Card.Age}");
+			switch (sender.Card.Gender)
+			{
+				case Gender.Male:
+					sb.AppendLine("Пол: мужской");
+					break;
+				case Gender.Female:
+					sb.AppendLine("Пол: женский");
+					break;
+				default:
+					sb.AppendLine("Пол: засекречен");
+					break;
+			}
+			switch (sender.Card.TargetGender)
+			{
+				case Gender.Male:
+					sb.AppendLine("Пол партнёра: мужской");
+					break;
+				case Gender.Female:
+					sb.AppendLine("Пол партнёра: женский");
+					break;
+				case Gender.NotSpecified:
+					sb.AppendLine("Пол партнёра: не принципиально");
+					break;
+			}
+			sb.AppendLine($"Регион - {sender.Card.Region}");
+			sb.AppendLine("==========");
+			sb.AppendLine($"Описание: {sender.Card.Description}");
+			sb.AppendLine("==========");
+			sb.AppendLine(CardEdit.GetHabbits(sender.Card, false));
+			sb.AppendLine("==========");
+			sb.AppendLine("Подтверждаем?");
+			using (var memoryStream = new MemoryStream(media.Image))
+			{
+				var file = new InputFileStream(memoryStream, $"{media.Id}.jpg");
+				await botClient.SendPhotoAsync(sender.Id, file, caption: sb.ToString());
+
+			}
+		}
 
 		private static ReplyKeyboardMarkup GetMenuReplyMarkup()
 		{
 			var btns = new KeyboardButton[3];
 
 			btns[0] = new KeyboardButton(strings.searchCommand);
-			btns[1] = new KeyboardButton(strings.searchParamsCommand);
+			btns[1] = new KeyboardButton(strings.showMyCardCommand);
 			btns[2] = new KeyboardButton(strings.cardEditCommand);
 
 			var result = new ReplyKeyboardMarkup(btns);

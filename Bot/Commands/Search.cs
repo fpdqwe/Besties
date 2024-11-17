@@ -29,7 +29,6 @@ namespace Bot.Commands
 				replyMarkup:GetOfferSenderMarkup(sender, offer));
 			sender.SetReply(GetOfferSenderReply);
 		}
-
 		public static async Task AwaitSearchConfirm(ITelegramBotClient botClient, Chat sender, string message)
 		{
 			switch (message)
@@ -102,8 +101,6 @@ namespace Bot.Commands
 
 			MessageHandler.SendMenu(botClient, offerRecipient);
 		}
-
-		
 		
 		public static string GetOfferCard(Card offer)
 		{
