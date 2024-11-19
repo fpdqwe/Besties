@@ -7,7 +7,7 @@ namespace Logger
 	{
 		static void Main(string[] args)
 		{
-			MessageHandler.Log += Log;
+			BotService.Log += Log;
 			var bot = Bot.Program.Init();
 			
 			var m = new ContextManager();
@@ -21,7 +21,7 @@ namespace Logger
 						return;
 					case "/currentSessions":
 						Console.WriteLine(command);
-						MessageHandler.ChatManager.Chats
+						BotService.ChatManager.Chats
 							.ForEach(chat => Console.WriteLine($"Session #{chat.Id}; user - {chat.Id}({chat.Card.Name})"));
 						break;
 				}

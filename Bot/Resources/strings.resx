@@ -207,4 +207,22 @@
   <data name="imagesPath" xml:space="preserve">
     <value>C:\Users\fpdcore\Source\Repos\fpdqwe\Besties\Bot\Resources\Images\</value>
   </data>
+  <data name="InvalidAgeError" xml:space="preserve">
+    <value>Недопустимый возраст</value>
+  </data>
+  <data name="CantParseAgeError" xml:space="preserve">
+    <value>Не удалось перевести возраст в число :(</value>
+  </data>
+  <data name="GenderMaleConst" xml:space="preserve">
+    <value>Я парень</value>
+  </data>
+  <data name="GenderFemaleConst" xml:space="preserve">
+    <value>Я девушка</value>
+  </data>
+  <data name="GenderNeutralConst" xml:space="preserve">
+    <value>Не указывать</value>
+  </data>
+  <data name="InvalidAnswerError" xml:space="preserve">
+    <value>Ответ не распознан. Пожалуйста, повторите попытку</value>
+  </data>
 </root>

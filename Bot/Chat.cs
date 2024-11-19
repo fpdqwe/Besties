@@ -1,8 +1,11 @@
 ﻿using Bot.Commands;
+using Bot.Utilities;
 using DAL.Repositories;
 using Domain.Entities;
 using System.Timers;
 using Telegram.Bot;
+using Telegram.Bot.Types;
+using User = Domain.Entities.User;
 using Timer = System.Timers.Timer;
 
 namespace Bot
@@ -16,6 +19,7 @@ namespace Bot
         private readonly int _timerDelay = 600000;
         private readonly List<ChatEventArgs> _subscribers;
         private ChatReplyDelegate _nextReply;
+        public IMessageReceiver CurrentReceiver { get; set; }
 		public long Id { get; private set; }
         public User User { get; private set; }
         public Card Card
@@ -38,7 +42,7 @@ namespace Bot
             _timer.Elapsed += OnTimedEvent;
             SearchScopes = new SearchScopes();
             SearchScopes.SkippedIds.Add(Id);
-            MessageHandler.LogMessage($"Chat with id = {Id} become active at {DateTime.Now}");
+            BotService.LogMessage($"Chat with id = {Id} become active at {DateTime.Now}");
         }
         // Utils
         public void SetActive(bool active)
@@ -60,7 +64,7 @@ namespace Bot
         {
             _timer.Stop();
             StartTimer();
-            MessageHandler.LogMessage($"Timer was reset in chat {Id} at {DateTime.Now}");
+            BotService.LogMessage($"Timer was reset in chat {Id} at {DateTime.Now}");
         }
         private void OnTimedEvent(object source, ElapsedEventArgs e)
         {
@@ -80,21 +84,31 @@ namespace Bot
             {
                 foreach (var subscriber in _subscribers)
                 {
-                    MessageHandler.LogMessage($"Chat with id = {Id} become inactive! Timestamp - {DateTime.Now}");
+                    BotService.LogMessage($"Chat with id = {Id} become inactive! Timestamp - {DateTime.Now}");
                     subscriber.Invoke(this);
                 }
             }
-            catch (Exception ex) { MessageHandler.LogMessage(ex.ToString()); } 
+            catch (Exception ex) { BotService.LogMessage(ex.ToString()); } 
         }
 
         // Chatting logic
         public void OnMessageReceived(ITelegramBotClient client, string message)
         {
-            MessageHandler.LogMessage($"Chat {Id} got new message: \"{message}\" type of {message.GetType}; Reply - {_nextReply.Method.Name}");
-            if (_awaitCommand) MessageHandler.LogMessage($"Message in chat {Id} was ignored because of: command expected");
-            _nextReply.Invoke(client, this, message);
+            BotService.LogMessage($"Chat {Id} got new message: \"{message}\" type of {message.GetType}; Reply - {_nextReply.Method.Name}");
+            if (_awaitCommand) BotService.LogMessage($"Message in chat {Id} was ignored because of: command expected");
+            // _nextReply.Invoke(client, this, message);
+            
             ResetTimer();
         }
+        public void TestReceive(ITelegramBotClient client, Message message)
+        {
+			BotService.LogMessage($"Chat {Id} got new message: \"{message.Text}\" " +
+                $"type of {message.GetType}; Reply - IMessageReceiver");
+			if (_awaitCommand) BotService.LogMessage($"Message in chat {Id} was ignored because of: command expected");
+			// _nextReply.Invoke(client, this, message);
+            CurrentReceiver?.OnMessageReceived(client, this, message);
+			ResetTimer();
+		}
         public void SetReply(ChatReplyDelegate reply, bool awaitCommand = false)
         {
             _nextReply = reply;

@@ -30,6 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Commands\SearchReplies\" />
     <Folder Include="Resources\Images\" />
   </ItemGroup>
 

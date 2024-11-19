@@ -6,10 +6,11 @@ using Bot.Resources;
 using Telegram.Bot.Types.ReplyMarkups;
 using Domain.Entities;
 using System.Text;
+using Bot.Commands.CardReplies;
 
 namespace Bot
 {
-	public class MessageHandler
+	public class BotService
 	{
 		// Fields and props
 		public delegate void LogHandler(string message);
@@ -50,49 +51,39 @@ namespace Bot
 
 			var chat = await ChatManager.Find(message.Chat.Id, message.Chat.Username);
 
-			if (chat.IsActive == false && chat.Card.IsActive == true)
-			{
-				SendMenu(client, chat);
-				chat.SetReply(AwaitMenuAction);
-				return;
-			}
-			if (message.Type == MessageType.Photo)
-			{
-				//foreach(var file in message.Photo)
-				//{
-				//	var photo = await client.GetFileAsync(file.FileId);
-
-				//	using (var stream = new FileStream(strings.resourcesPath + $"{photo.FileId}.jpg",
-				//		FileMode.CreateNew, FileAccess.Write))
-				//	{
-				//		await client.DownloadFileAsync(photo.FilePath, stream);
-
-				//		await client.SendPhotoAsync(message.From.Id, photo, caption: "копия");
-				//	}
-				//}
-				foreach (var photo in message.Photo)
-				{
-					Log?.Invoke($"Photo uploaded in chat {chat.Id}! {photo.FileId}; {photo.FileUniqueId}; {photo.FileSize}");
-				}
-				CardEdit.AwaitPhotoChange(client, chat, message.Photo);
-			}
-			switch (message.Text)
-			{
-				case "/start":
-					chat.SetReply(MeetClient);
-					chat.SetActive(true);
-					chat.OnMessageReceived(client, message.Text);
-					break;
-				case "/editcatd":
-					CardEdit.InitCardEditMode(client, chat);
-					break;
-				case "/search":
-					Search.OfferCandidate(client, chat);
-					break;
-				default:
-					chat.OnMessageReceived(client, message.Text);
-					break;
-			}
+			chat.CurrentReceiver = new CardEditReceiver(client, chat);
+			chat.TestReceive(client, message);
+			//if (chat.IsActive == false && chat.Card.IsActive == true)
+			//{
+			//	SendMenu(client, chat);
+			//	chat.SetReply(AwaitMenuAction);
+			//	return;
+			//}
+			//if (message.Type == MessageType.Photo)
+			//{
+			//	foreach (var photo in message.Photo)
+			//	{
+			//		Log?.Invoke($"Photo uploaded in chat {chat.Id}! {photo.FileId}; {photo.FileUniqueId}; {photo.FileSize}");
+			//	}
+			//	CardService.AwaitPhotoChange(client, chat, message.Photo);
+			//}
+			//switch (message.Text)
+			//{
+			//	case "/start":
+			//		chat.SetReply(MeetClient);
+			//		chat.SetActive(true);
+			//		chat.OnMessageReceived(client, message.Text);
+			//		break;
+			//	case "/editcatd":
+			//		CardService.InitCardEditMode(client, chat);
+			//		break;
+			//	case "/search":
+			//		Search.OfferCandidate(client, chat);
+			//		break;
+			//	default:
+			//		chat.OnMessageReceived(client, message.Text);
+			//		break;
+			//}
 		}
 		private static async Task BotOnQueryReceived(ITelegramBotClient client, CallbackQuery query)
 		{
@@ -141,7 +132,7 @@ namespace Bot
 			}
 			if(message == strings.cardEditCommand)
 			{
-				CardEdit.InitCardEditMode(client, sender);
+				CardService.InitCardEditMode(client, sender);
 			}
 		}
 		public static async Task SendMenu(ITelegramBotClient client, Chat sender)
@@ -189,7 +180,7 @@ namespace Bot
 			sb.AppendLine("==========");
 			sb.AppendLine($"Описание: {sender.Card.Description}");
 			sb.AppendLine("==========");
-			sb.AppendLine(CardEdit.GetHabbits(sender.Card, false));
+			sb.AppendLine(CardService.GetHabbits(sender.Card, false));
 			sb.AppendLine("==========");
 			sb.AppendLine("Подтверждаем?");
 			using (var memoryStream = new MemoryStream(media.Image))

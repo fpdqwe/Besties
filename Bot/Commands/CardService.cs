@@ -8,7 +8,7 @@ using Telegram.Bot.Types.ReplyMarkups;
 
 namespace Bot.Commands
 {
-	public static class CardEdit
+	public static class CardService
 	{
 		// Methods
 		public static async Task InitCardEditMode(ITelegramBotClient botClient, Chat sender)
@@ -79,7 +79,7 @@ namespace Bot.Commands
 		}
 		public static async Task OnRegionChange(ITelegramBotClient botClient, Chat sender, string message)
 		{
-			var region = ResourceReader.GetRegion(message);
+			var region = ResourceReader.FindRegionCodeByName(message);
 			sender.NewCard.Region = region;
 			await botClient.SendTextMessageAsync(sender.Id, "Как тебя зовут?", replyMarkup: null);
 			sender.SetReply(AwaitNameChange);
@@ -114,7 +114,7 @@ namespace Bot.Commands
 				cardMedia.Image = memoryStream.ToArray();
 			}
 
-			await MessageHandler.ChatManager.SaveCardPhoto(cardMedia);
+			await BotService.ChatManager.SaveCardPhoto(cardMedia);
 			botClient.SendTextMessageAsync(sender.Id, "Фото успешно изменено");
 		}
 		public static async Task AwaitHabbitsCommand(ITelegramBotClient botClient, Chat sender, string message)
@@ -180,12 +180,12 @@ namespace Bot.Commands
 			{
 				await botClient.SendTextMessageAsync(sender.Id, "Изменения подтверждены");
 				await OnCardEditCompleted(sender);
-				await MessageHandler.SendMenu(botClient, sender);
+				await BotService.SendMenu(botClient, sender);
 			}
 		}
 		public static async Task SendCardPreview(ITelegramBotClient botClient, Chat sender)
 		{
-			var media = await MessageHandler.ChatManager.GetCardPhoto(sender.Id);
+			var media = await BotService.ChatManager.GetCardPhoto(sender.Id);
 			var sb = new StringBuilder();
 			sb.AppendLine($"Имя: {sender.NewCard.Name}");
 			sb.AppendLine($"Возраст: {sender.NewCard.Age}");

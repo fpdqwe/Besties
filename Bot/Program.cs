@@ -21,8 +21,8 @@ namespace Bot
 
 			bot.StartReceiving(
 				
-				MessageHandler.DefaultHandler,
-				MessageHandler.ErrorHandler,
+				BotService.DefaultHandler,
+				BotService.ErrorHandler,
 				ro,
 				cts.Token
 				);

@@ -88,6 +88,15 @@ namespace Bot.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Не удалось перевести возраст в число :(.
+        /// </summary>
+        internal static string CantParseAgeError {
+            get {
+                return ResourceManager.GetString("CantParseAgeError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Редактировать мою анкету.
         /// </summary>
         internal static string cardEditCommand {
@@ -138,6 +147,33 @@ namespace Bot.Resources {
         internal static string confirmationPositive {
             get {
                 return ResourceManager.GetString("confirmationPositive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Я девушка.
+        /// </summary>
+        internal static string GenderFemaleConst {
+            get {
+                return ResourceManager.GetString("GenderFemaleConst", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Я парень.
+        /// </summary>
+        internal static string GenderMaleConst {
+            get {
+                return ResourceManager.GetString("GenderMaleConst", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Не указывать.
+        /// </summary>
+        internal static string GenderNeutralConst {
+            get {
+                return ResourceManager.GetString("GenderNeutralConst", resourceCulture);
             }
         }
         
@@ -219,6 +255,24 @@ namespace Bot.Resources {
         internal static string imagesPath {
             get {
                 return ResourceManager.GetString("imagesPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Недопустимый возраст.
+        /// </summary>
+        internal static string InvalidAgeError {
+            get {
+                return ResourceManager.GetString("InvalidAgeError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Ответ не распознан. Пожалуйста, повторите попытку.
+        /// </summary>
+        internal static string InvalidAnswerError {
+            get {
+                return ResourceManager.GetString("InvalidAnswerError", resourceCulture);
             }
         }
         

@@ -7,32 +7,38 @@ namespace Bot.Utilities
 {
 	public class ResourceReader
 	{
+		private const string EMPTY_REGION = "Сказочный мир";
 		private static bool isInitialized = false;
-		private static Dictionary<string, byte> _regions;
+		private static List<Region> _regions = new List<Region>(16);
 		public static bool IsInitialized { get { return isInitialized; } }
 
-		public static byte GetRegion(string region)
+		public static byte FindRegionCodeByName(string regionName)
 		{
+			if (regionName == null) throw new ArgumentNullException("Region name");
 			if (IsInitialized == false) InitReader();
-
-			byte result = 0;
-			_regions.TryGetValue(region.ToLower(), out result);
-			return result;
+			var result = _regions.FirstOrDefault(r => r.Name == regionName);
+			if (result == null) return 0;
+			return result.Index;
+		}
+		public static string GetRegionName(byte id)
+		{
+			if (id >= _regions.Count - 1) return EMPTY_REGION;
+			return _regions[id - 1].Name;
 		}
 		public static void InitReader()
 		{
 			var st = new Stopwatch();
-			MessageHandler.LogMessage("Bot.Utilities.ResourceReader initializing.");
+			BotService.LogMessage("Bot.Utilities.ResourceReader initializing.");
 			st.Start();
-			_regions = GetRegions();
+			InitRegions();
 			isInitialized = true;
 			st.Stop();
-			MessageHandler.LogMessage($"Bot.Utilities.ResourceReader initializied in {st.ElapsedMilliseconds} ms.");
+			BotService.LogMessage($"Bot.Utilities.ResourceReader initializied in {st.ElapsedMilliseconds} ms.");
 		}
 
 		public static async Task SaveImage(CardMedia media)
 		{
-			await File.WriteAllBytesAsync(strings.imagesPath + $"{media.Id}.jpg", media.Image);
+			File.WriteAllBytesAsync(strings.imagesPath + $"{media.Id}.jpg", media.Image);
 		}
 		public static async Task<CardMedia> GetImage(long id)
 		{
@@ -42,16 +48,20 @@ namespace Bot.Utilities
 			media.Image = await File.ReadAllBytesAsync(strings.imagesPath + $"{media.Id}.jpg");
 			return media;
 		}
-		private static Dictionary<string, byte> GetRegions()
+		public static bool IsImageExists(long id)
 		{
-			var dictionary = new Dictionary<string, byte>();
-
+			return File.Exists(strings.imagesPath + $"{id}.jpg");
+		}
+		/// <summary>
+		/// This method reads xml document with information about regions
+		/// </summary>
+		private static void InitRegions()
+		{
 			var document = new XmlDocument();
 			using (var stream = new FileStream(strings.regionsXmlPath, FileMode.Open, FileAccess.Read))
 			{
 				document.Load(stream);
 			}
-			
 
 			foreach (XmlNode node in document.DocumentElement.ChildNodes)
 			{
@@ -60,11 +70,20 @@ namespace Bot.Utilities
 
 				if (!string.IsNullOrEmpty(name))
 				{
-					dictionary[name] = value;
+					_regions.Add(new Region(value, name));
 				}
 			}
-
-			return dictionary;
 		}
+
+		private class Region
+		{
+			public byte Index { get; private set; }
+			public string Name { get; private set; }
+            public Region(byte id, string name)
+            {
+                Index = id;
+				Name = name;
+            }
+        }
 	}
 }

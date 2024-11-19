@@ -10,17 +10,17 @@ namespace Bot.Commands
 	{
 		public static async Task OfferCandidate(ITelegramBotClient botClient, Chat sender)
 		{
-			MessageHandler.LogMessage($"Search requested in chat {sender.Id}.");
-			MessageHandler.LogMessage($"Skipped users:\n");
+			BotService.LogMessage($"Search requested in chat {sender.Id}.");
+			BotService.LogMessage($"Skipped users:\n");
 			foreach (var id in sender.SearchScopes.SkippedIds)
 			{
-				MessageHandler.LogMessage($"{id}");
+				BotService.LogMessage($"{id}");
 			}
-			var offer = await MessageHandler.ChatManager.GetOffer(sender);
+			var offer = await BotService.ChatManager.GetOffer(sender);
 			if (offer == null)
 			{
 				await botClient.SendTextMessageAsync(sender.Id, "На данный момент нет подходящих вам анкет, попробуйте позже");
-				MessageHandler.SendMenu(botClient, sender);
+				BotService.SendMenu(botClient, sender);
 				return;
 			}
 			sender.SearchScopes.LastOffer = offer;
@@ -37,7 +37,7 @@ namespace Bot.Commands
 					OfferCandidate(botClient, sender); 
 					break;
 				case "Нет":
-					MessageHandler.SendMenu(botClient, sender); 
+					BotService.SendMenu(botClient, sender); 
 					break;
 			}
 		}
@@ -61,7 +61,7 @@ namespace Bot.Commands
 			var queryData = ReadSearchQuery(queryResult);
 			if (queryData[3] == "1")
 			{
-				var offerSender = await MessageHandler.ChatManager.Find(Convert.ToInt64(queryData[1]));
+				var offerSender = await BotService.ChatManager.Find(Convert.ToInt64(queryData[1]));
 				await botClient.SendTextMessageAsync(recipient.Id, "Приятного общения!",
 					replyMarkup: GetOfferSuccessMarkup(offerSender));
 				
@@ -78,28 +78,28 @@ namespace Bot.Commands
 		public static async Task NotifyOfferRecipient(ITelegramBotClient botClient, string query)
 		{
 			var queryData = ReadSearchQuery(query);
-			var offerSender = await MessageHandler.ChatManager.Find(Convert.ToInt64(queryData[1]));
-			var offerRecipient = await MessageHandler.ChatManager.Find(Convert.ToInt64(queryData[2]));
+			var offerSender = await BotService.ChatManager.Find(Convert.ToInt64(queryData[1]));
+			var offerRecipient = await BotService.ChatManager.Find(Convert.ToInt64(queryData[2]));
 			
 			
 			
 			await botClient.SendTextMessageAsync(offerRecipient.Id, "Вы понравились одному человеку!\n"
-				+ GetOfferCard(await MessageHandler.ChatManager.GetOfferSender(Convert.ToInt64(queryData[1]))),
+				+ GetOfferCard(await BotService.ChatManager.GetOfferSender(Convert.ToInt64(queryData[1]))),
 				replyMarkup: GetOfferRecipientMarkup(offerSender, offerRecipient.Card));
 
-			MessageHandler.SendMenu(botClient, offerRecipient);
+			BotService.SendMenu(botClient, offerRecipient);
 		}
 		public static async Task NotifyOfferSender(ITelegramBotClient botClient, string query)
 		{
 			var queryData = ReadSearchQuery(query);
-			var offerSender = await MessageHandler.ChatManager.Find(Convert.ToInt64(queryData[1]));
-			var offerRecipient = await MessageHandler.ChatManager.Find(Convert.ToInt64(queryData[2]));
+			var offerSender = await BotService.ChatManager.Find(Convert.ToInt64(queryData[1]));
+			var offerRecipient = await BotService.ChatManager.Find(Convert.ToInt64(queryData[2]));
 
 			await botClient.SendTextMessageAsync(offerSender.Id, "Вам ответили взаимностью!\n"
 				+ GetOfferCard(offerRecipient.Card),
 				replyMarkup: GetOfferSuccessMarkup(offerRecipient));
 
-			MessageHandler.SendMenu(botClient, offerRecipient);
+			BotService.SendMenu(botClient, offerRecipient);
 		}
 		
 		public static string GetOfferCard(Card offer)
@@ -194,9 +194,9 @@ namespace Bot.Commands
 			var values = data.Split(";");
 			if (values.Length > 4)
 			{
-				MessageHandler.LogMessage("Incorrect query received: more than 4 arguments in query");
+				BotService.LogMessage("Incorrect query received: more than 4 arguments in query");
 			}
-			MessageHandler.LogMessage($"Query type - {values[0]}; Sender - {values[1]}; Recipient - {values[2]}; Value: {values[3]}");
+			BotService.LogMessage($"Query type - {values[0]}; Sender - {values[1]}; Recipient - {values[2]}; Value: {values[3]}");
 			return values.ToArray();
 		}
 	}
