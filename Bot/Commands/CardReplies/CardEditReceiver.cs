@@ -30,7 +30,7 @@ namespace Bot.Commands.CardReplies
 				new BadHabbitsReply(),
 				new ChangesApproveReply()
 			};
-			_currentHandler = _handlers[0];
+			ReplyHandler = _handlers[0];
 
 			BotService.LogMessage($"Chat {sender.Id} has changed ({GetType()})");
 		}
@@ -40,11 +40,12 @@ namespace Bot.Commands.CardReplies
 			{
 				if (message.Type != MessageType.Text && message.Type != MessageType.Photo) return;
 			}
-			await _currentHandler.Handle(client, sender, message);
+			await ReplyHandler.Handle(client, sender, message);
 
 			// If card not approved
 			if ((_currentIndex - 1 == _endIndex) && !_currentHandler.IsFinished)
 			{
+				BotService.LogMessage($"{this.GetType()}: loop restarting...");
 				RestartLoop();
 				return;
 			}
@@ -53,24 +54,25 @@ namespace Bot.Commands.CardReplies
 			{
 				await HandleDrop();
 			}
+
+			else BotService.LogMessage($"{this.GetType()}: The handler ({ReplyHandler.GetType()}) worked, but the message did not pass its conditions");
 		}
 		public override async Task HandleStart()
 		{
-			BotService.LogMessage($"CURRENT HANDLER INDEX {_currentIndex}");
-			BotService.LogMessage($"CURRENT REPLYER {ReplyHandler.GetType()}");
+			BotService.LogMessage($"{this.GetType()}: handler had start ({ReplyHandler.GetType()})");
 			await ReplyHandler.SendMessage(_client, _sender);
-
 		}
 		public override async Task HandleDrop()
 		{
+			BotService.LogMessage($"{this.GetType()}: handler dropped ({ReplyHandler.GetType()})");
 			ReplyHandler = _handlers[_currentIndex + 1];
 			_currentIndex += 1;
-			await HandleStart();
+			BotService.LogMessage($"{this.GetType()}: handler set ({ReplyHandler.GetType()})");
 		}
 		private void RestartLoop()
 		{
 			_currentIndex = 0;
-			_currentHandler = _handlers[_currentIndex];
+			ReplyHandler = _handlers[_currentIndex];
 		}
 	}
 }

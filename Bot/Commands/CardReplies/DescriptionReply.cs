@@ -25,7 +25,8 @@ namespace Bot.Commands.CardReplies
 				return;
 			}
 			sender.NewCard.Description = message.Text;
-			SendMessage(client, sender, REACT);
+			_isFinished = true;
+			 await SendMessage(client, sender, REACT);
 		}
 		public override async Task SendMessage(ITelegramBotClient client, Chat sender)
 		{

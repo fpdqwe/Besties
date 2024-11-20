@@ -20,7 +20,7 @@ namespace Bot.Commands.CardReplies
 		{
 			sender.NewCard.Name = message.Text;
 			_isFinished = true;
-			SendMessage(client, sender, REACT + message.Text);
+			await SendMessage(client, sender, REACT + message.Text);
 		}
 		public override async Task SendMessage(ITelegramBotClient client, Chat sender)
 		{

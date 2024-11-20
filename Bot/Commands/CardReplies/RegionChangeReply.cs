@@ -18,18 +18,21 @@ namespace Bot.Commands.CardReplies
 		public override async Task Handle(ITelegramBotClient client, Chat sender, Message message)
 		{
 			var region = ResourceReader.FindRegionCodeByName(message.Text);
-			sender.NewCard.Region = region;
+			if(region == 0) _isFinished = true;
 		}
 		public override async Task SendMessage(ITelegramBotClient client, Chat sender)
 		{
-			SendMessage(client, sender, Message, GetMarkup(sender));
+			await SendMessage(client, sender, Message, GetMarkup(sender));
 		}
 
 		private static ReplyKeyboardMarkup GetMarkup(Chat sender)
 		{
-			if (sender.Card.Region == null) return null;
 			var result = new ReplyKeyboardMarkup(new KeyboardButton(
-				Utilities.ResourceReader.GetRegionName(sender.Card.Region)));
+				Utilities.ResourceReader.GetRegionName(sender.Card.Region)))
+			{
+				ResizeKeyboard = true,
+				OneTimeKeyboard = true
+			};
 			return result;
 		}
 	}

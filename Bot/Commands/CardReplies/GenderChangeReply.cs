@@ -49,6 +49,7 @@ namespace Bot.Commands.CardReplies
 			};
 
 			var result = new ReplyKeyboardMarkup(btns);
+			result.ResizeKeyboard = true;
 			result.OneTimeKeyboard = true;
 			return result;
 		}

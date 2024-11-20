@@ -41,13 +41,16 @@ namespace Bot.Utilities
 			{
 				await HandleDrop();
 			}
+			else BotService.LogMessage($"{this.GetType()}: The handler ({ReplyHandler.GetType()}) worked, but the message did not pass its conditions");
 		}
 		public virtual async Task HandleStart()
 		{
+			BotService.LogMessage($"{this.GetType()}: handler had start ({ReplyHandler.GetType()})");
 			await ReplyHandler.SendMessage(_client, _sender);
 		}
 		public virtual async Task HandleDrop()
 		{
+			BotService.LogMessage($"{this.GetType()}: handler dropped ({ReplyHandler.GetType()})");
 			ReplyHandler = _handlers[_currentIndex + 1];
 			_currentIndex += 1;
 			await HandleStart();

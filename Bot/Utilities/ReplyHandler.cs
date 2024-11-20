@@ -21,10 +21,11 @@ namespace Bot.Utilities
 		public virtual async Task SendMessage(ITelegramBotClient client, Chat sender, string message,
 			IReplyMarkup markup = null)
 		{
-			await client.SendTextMessageAsync(
+			var mes = await client.SendTextMessageAsync(
 				sender.Id,
 				message,
 				replyMarkup: markup);
+			BotService.LogMessage($"Handler replied: {mes.Text}. {mes.From.FirstName}");
 		}
 		public virtual async Task Handle(ITelegramBotClient client, Chat sender, Message message)
 		{

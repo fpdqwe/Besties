@@ -31,18 +31,18 @@ namespace Bot.Commands.CardReplies
 			{
 				if (age < 18 || age > 140)
 				{
-					SendMessage(client, sender, strings.InvalidAgeError);
+					await SendMessage(client, sender, strings.InvalidAgeError);
 					return;
 				}
 				else
 				{
-					client.SendTextMessageAsync(sender.Id, $"Ваш возраст теперь {age} вместо {sender.Card.Age}");
+					await client.SendTextMessageAsync(sender.Id, $"Ваш возраст теперь {age} вместо {sender.Card.Age}");
 					sender.NewCard.Age = age;
 					_isFinished = true;
 					return;
 				}
 			}
-			SendMessage(client, sender, strings.CantParseAgeError);
+			await SendMessage(client, sender, strings.CantParseAgeError);
 		}
 		private static ReplyKeyboardMarkup GetMarkup(int currentAge)
 		{

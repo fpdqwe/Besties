@@ -7,6 +7,7 @@ using Telegram.Bot;
 using Telegram.Bot.Types;
 using User = Domain.Entities.User;
 using Timer = System.Timers.Timer;
+using Bot.Commands.CardReplies;
 
 namespace Bot
 {
@@ -113,6 +114,12 @@ namespace Bot
         {
             _nextReply = reply;
             _awaitCommand = awaitCommand;
+        }
+        public void SetReceiver(IMessageReceiver receiver)
+        {
+            if (CurrentReceiver != receiver)
+                CurrentReceiver = receiver;
+            else return;
         }
     }
 }

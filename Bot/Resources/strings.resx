@@ -199,13 +199,13 @@
     <value>Редактировать мою анкету</value>
   </data>
   <data name="regionsXmlPath" xml:space="preserve">
-    <value>C:\Users\fpdcore\Source\Repos\fpdqwe\Besties\Bot\Resources\Regions.xml</value>
+    <value>C:\Users\fpdcore\source\repos\Besties\Bot\Resources\Regions.xml</value>
   </data>
   <data name="resourcesPath" xml:space="preserve">
     <value>C:\Users\fpdcore\Source\Repos\fpdqwe\Besties\Bot\Resources\</value>
   </data>
   <data name="imagesPath" xml:space="preserve">
-    <value>C:\Users\fpdcore\Source\Repos\fpdqwe\Besties\Bot\Resources\Images\</value>
+    <value>C:\Users\fpdcore\source\repos\Besties\Bot\Resources\Images\</value>
   </data>
   <data name="InvalidAgeError" xml:space="preserve">
     <value>Недопустимый возраст</value>

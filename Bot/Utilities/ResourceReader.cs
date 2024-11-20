@@ -23,7 +23,7 @@ namespace Bot.Utilities
 		public static string GetRegionName(byte id)
 		{
 			if (id >= _regions.Count - 1) return EMPTY_REGION;
-			return _regions[id - 1].Name;
+			return _regions[id].Name;
 		}
 		public static void InitReader()
 		{

@@ -17,7 +17,7 @@ namespace Bot.Commands.CardReplies
 		private const string MESSAGE = "Теперь отправь своё фото";
 		private const string SKIP = "Оставить текущее фото? Если хотите поменять, просто пришлите новое фото";
 		private const string REACT = "Фото изменено";
-		private const string APPROVE = "Да";
+		private const string APPROVE = "Оставить текущее";
 		public override async Task Handle(ITelegramBotClient client, Chat sender, Message message)
 		{
 			switch (message.Type)
@@ -62,11 +62,14 @@ namespace Bot.Commands.CardReplies
 			}
 
 			BotService.ChatManager.SaveCardPhoto(cardMedia);
-			client.SendTextMessageAsync(sender.Id, "Фото успешно изменено");
+			await client.SendTextMessageAsync(sender.Id, "Фото успешно изменено");
 		}
 		private static ReplyKeyboardMarkup GetMarkup()
 		{
-			return new ReplyKeyboardMarkup(new KeyboardButton(APPROVE));
+			return new ReplyKeyboardMarkup(new KeyboardButton(APPROVE))
+			{
+				ResizeKeyboard = true
+			};
 		}
 	}
 }

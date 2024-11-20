@@ -51,7 +51,7 @@ namespace Bot
 
 			var chat = await ChatManager.Find(message.Chat.Id, message.Chat.Username);
 
-			chat.CurrentReceiver = new CardEditReceiver(client, chat);
+			if (chat.CurrentReceiver == null) chat.SetReceiver(new CardEditReceiver(client, chat));
 			chat.TestReceive(client, message);
 			//if (chat.IsActive == false && chat.Card.IsActive == true)
 			//{

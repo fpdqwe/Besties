@@ -250,7 +250,7 @@ namespace Bot.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на C:\Users\fpdcore\Source\Repos\fpdqwe\Besties\Bot\Resources\Images\.
+        ///   Ищет локализованную строку, похожую на C:\Users\fpdcore\source\repos\Besties\Bot\Resources\Images\.
         /// </summary>
         internal static string imagesPath {
             get {
@@ -313,7 +313,7 @@ namespace Bot.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на C:\Users\fpdcore\Source\Repos\fpdqwe\Besties\Bot\Resources\Regions.xml.
+        ///   Ищет локализованную строку, похожую на C:\Users\fpdcore\source\repos\Besties\Bot\Resources\Regions.xml.
         /// </summary>
         internal static string regionsXmlPath {
             get {
