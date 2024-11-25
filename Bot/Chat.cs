@@ -1,17 +1,17 @@
-﻿using Bot.Commands;
-using Bot.Utilities;
-using DAL.Repositories;
+﻿using Bot.Utilities;
 using Domain.Entities;
 using System.Timers;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 using User = Domain.Entities.User;
 using Timer = System.Timers.Timer;
-using Bot.Commands.CardReplies;
+using Bot.Types;
+using Bot.Exceptions;
+using Bot.Branches;
 
 namespace Bot
 {
-    public delegate Task ChatReplyDelegate(ITelegramBotClient client, Chat sender, string currentMessage);
+    public delegate Task ChatUpdateHandler(Unit unit);
     public delegate void ChatEventArgs(Chat chat);
 	public class Chat
 	{
@@ -19,9 +19,8 @@ namespace Bot
         private readonly Timer _timer;
         private readonly int _timerDelay = 600000;
         private readonly List<ChatEventArgs> _subscribers;
-        private ChatReplyDelegate _nextReply;
-        public IMessageReceiver CurrentReceiver { get; set; }
-		public long Id { get; private set; }
+        private ChatUpdateHandler _nextReply;
+		public long Id { get => User.Id; }
         public User User { get; private set; }
         public Card Card
         {
@@ -30,12 +29,10 @@ namespace Bot
         }
         public Card NewCard { get; set; }
         public bool IsActive { get; private set; }
-        private bool _awaitCommand { get; set; }
         public SearchScopes SearchScopes { get; set; }
         // Ctor
         public Chat(long ChatId, User user)
         {
-            Id = ChatId;
             User = user;
             IsActive = true;
             _subscribers = new List<ChatEventArgs>();
@@ -43,7 +40,7 @@ namespace Bot
             _timer.Elapsed += OnTimedEvent;
             SearchScopes = new SearchScopes();
             SearchScopes.SkippedIds.Add(Id);
-            BotService.LogMessage($"Chat with id = {Id} become active at {DateTime.Now}");
+            BotService.LogMessage($"Chat with id = {Id} initialized at {DateTime.Now}");
         }
         // Utils
         public void SetActive(bool active)
@@ -53,6 +50,22 @@ namespace Bot
         public string GetUserLink()
         {
             return $"tg://user?id={Id}";
+        }
+        public void CopyCard()
+        {
+            NewCard = new Card()
+            {
+                Id = Id,
+                Name = Card.Name,
+                Description = Card.Description,
+                Gender = Card.Gender,
+                TargetGender = Card.TargetGender,
+                Age = Card.Age,
+                Region = Card.Region,
+                IsDrinking = Card.IsDrinking,
+                IsSmoking = Card.IsSmoking,
+                IsActive = Card.IsActive,
+            };
         }
 
 		// Chat expiration logic
@@ -93,33 +106,39 @@ namespace Bot
         }
 
         // Chatting logic
-        public void OnMessageReceived(ITelegramBotClient client, string message)
+        public async Task OnMessageReceived(Unit unit)
         {
-            BotService.LogMessage($"Chat {Id} got new message: \"{message}\" type of {message.GetType}; Reply - {_nextReply.Method.Name}");
-            if (_awaitCommand) BotService.LogMessage($"Message in chat {Id} was ignored because of: command expected");
-            // _nextReply.Invoke(client, this, message);
+            BotService.LogMessage($"{Id} received new message: \"{unit.MesText}\" type of {unit.MesType.ToString()}; " +
+                $"Reply - {_nextReply.Method.Name}");
+
+            try
+            {
+				_nextReply?.Invoke(unit);
+			}
+            catch (EmptyOfferPoolException emptyPoolEx)
+            {
+                Search.OnEmptyCardPool(unit.Client, unit.Chat);
+            }
             
             ResetTimer();
         }
-        public void TestReceive(ITelegramBotClient client, Message message)
+        public async Task OnMessageReceived(ITelegramBotClient client, Update update)
         {
-			BotService.LogMessage($"Chat {Id} got new message: \"{message.Text}\" " +
-                $"type of {message.GetType}; Reply - IMessageReceiver");
-			if (_awaitCommand) BotService.LogMessage($"Message in chat {Id} was ignored because of: command expected");
-			// _nextReply.Invoke(client, this, message);
-            CurrentReceiver?.OnMessageReceived(client, this, message);
+            var unit = new Unit(client, this, update);
+			try
+			{
+				_nextReply?.Invoke(unit);
+			}
+			catch (EmptyOfferPoolException emptyPoolEx)
+			{
+				Search.OnEmptyCardPool(unit.Client, unit.Chat);
+			}
+
 			ResetTimer();
 		}
-        public void SetReply(ChatReplyDelegate reply, bool awaitCommand = false)
+        public void SetReply(ChatUpdateHandler reply)
         {
             _nextReply = reply;
-            _awaitCommand = awaitCommand;
-        }
-        public void SetReceiver(IMessageReceiver receiver)
-        {
-            if (CurrentReceiver != receiver)
-                CurrentReceiver = receiver;
-            else return;
         }
     }
 }

@@ -2,8 +2,8 @@
 {
 	public enum ChatMode : byte
 	{
-		GuestPrivate,
-		CardEditPrivate,
-		PairingPrivate,
+		ExistingUser,
+		Guest,
+		Admin,
 	}
 }

@@ -1,4 +1,5 @@
-﻿using Bot.Commands;
+﻿using Bot.Exceptions;
+using Bot.Types;
 using DAL;
 using DAL.Repositories;
 using Domain.Entities;
@@ -6,7 +7,7 @@ using System.Resources;
 
 namespace Bot
 {
-	public class ChatManager
+    public class ChatManager
 	{
 		private static readonly ContextManager _contextManager = new ContextManager();
 		private static readonly UserRepository _userRepository = new UserRepository(_contextManager);
@@ -21,15 +22,15 @@ namespace Bot
         }
 
 		/// <summary>
-		/// Возвращает чат по его id, по умолчанию активирует его если он не найден.
-		/// Так же по умолчанию создаёт нового пользователя и анкету, если пользователь чата не найден
+		/// Возвращает чат по его id, по умолчанию создаёт нового пользователя и анкету, 
+		/// если пользователь чата не найден
 		/// </summary>
 		/// <param name="id">id чата</param>
 		/// <param name="username">Тэг пользователя</param>
 		/// <param name="makeActive">Активировать чат, если он не будет найден</param>
 		/// <returns></returns>
 		/// <exception cref="Exception">Выбрасывается если makeActive = false, при этом искомый чат не активен</exception>
-        public async Task<Chat> Find(long id, string username = null, bool makeActive = true)
+		public async Task<Chat> Find(long id, string username = null, bool makeActive = true)
 		{
 			if (makeActive)
 			{
@@ -54,7 +55,6 @@ namespace Bot
 		}
 		public async Task<Card> GetOffer(Chat sender)
 		{
-			
 			var result = await FindRandomCard(sender.Card, sender.SearchScopes);
 			return result;
 		}
@@ -67,12 +67,18 @@ namespace Bot
 			user.Card = await FindCardByUserId(user.Id);
 			Chat chat = new Chat(user.Id, user);
 			chat.SetActive(false);
+
+			var incomingOffers = await GetIncomingOffers(user.Id);
+			if (incomingOffers != null && incomingOffers.Count > 0) chat.SearchScopes.SetIncomingOffers(incomingOffers);
+			var outgoingOffers = await GetOutgoingOffers(user.Id);
+			if (outgoingOffers != null && outgoingOffers.Count > 0) chat.SearchScopes.SetOutgoingOffers(outgoingOffers);
+			
 			return chat;
 		}
 		private void RemoveInactiveChat(Chat sender)
 		{
-			_chats.Remove(sender);
 			sender.Unsubscribe(RemoveInactiveChat);
+			_chats.Remove(sender);
 		}
 
 		// DB operations
@@ -84,14 +90,14 @@ namespace Bot
 				user = await _userRepository.CreateNewUser(
 					ChatId,
 					ChatId.ToString(),
-					Domain.Enums.ChatMode.GuestPrivate);
+					Domain.Enums.ChatMode.Guest);
 			}
 			if (user == null && username != null)
 			{
 				user = await _userRepository.CreateNewUser(
 					ChatId,
 					username,
-					Domain.Enums.ChatMode.GuestPrivate);
+					Domain.Enums.ChatMode.Guest);
 			}
 
 			return user;
@@ -113,31 +119,79 @@ namespace Bot
 					if (offer.Id == scope) notSkipped = false;	
 				}
 				if (notSkipped) return offer;
-				else return null;
 			}
-			throw new Exception("Something went wrong in candidate search");
+			return null;
 		}
+
+		// Offers
 		private async Task<List<Offer>> GetUncheckedOffers(long recipientId)
 		{
 			return await _offerRepository.GetOffersByRecepientId(recipientId);
 		}
-		public async Task SaveOffer(Offer offer)
+		private async Task<List<Offer>> GetOutgoingOffers(long senderId)
 		{
-			_offerRepository.SaveOrUdate(offer);
+			return await _offerRepository.GetOffersBySenderId(senderId);
 		}
+		private async Task<List<Offer>> GetIncomingOffers(long recepientId)
+		{
+			return await _offerRepository.GetOffersByRecepientId(recepientId);
+		}
+		public async Task<Offer> SaveOrUpdateOffer(Offer offer)
+		{
+			if (offer.SenderApproval == null) return null;
+			return await _offerRepository.SaveOrUdate(offer);
+		}
+
+		// Photo
 		public async Task<CardMedia> GetCardPhoto(long id)
 		{
-			return await Utilities.ResourceReader.GetImage(id);
+			try
+			{
+				return await Utilities.ResourceReader.GetImage(id);
+			}
+			catch (Exception ex)
+			{
+				throw new InvalidOfferException("Offers card photo does not exist or ResourceReader unable to find it", ex, id);
+			}
 		}
 		public async Task SaveCardPhoto(CardMedia media)
 		{
 			Utilities.ResourceReader.SaveImage(media);
 		}
+		public async Task SetCardStatus(Card card, bool status)
+		{
+			card.IsActive = status;
+			_cardRepository.SaveOrUdate(card);
+		}
+
+		// Card
 		public static async Task ApplyCardChanges(Chat chat)
 		{
+			chat.NewCard.IsActive = true;
+			chat.NewCard.LastActivationDate = DateTime.UtcNow;
 			await _cardRepository.Update(chat.NewCard);
-			chat.Card = chat.NewCard;
+			chat.Card = new Card()
+			{
+				Id = chat.NewCard.Id,
+				Age = chat.NewCard.Age,
+				Name = chat.NewCard.Name,
+				Gender = chat.NewCard.Gender,
+				TargetGender = chat.NewCard.TargetGender,
+				Region = chat.NewCard.Region,
+				Description = chat.NewCard.Description,
+				IsDrinking = chat.NewCard.IsDrinking,
+				IsSmoking = chat.NewCard.IsSmoking,
+				IsActive = chat.NewCard.IsActive,
+				HealthyMode = chat.NewCard.HealthyMode,
+				LastActivationDate = chat.NewCard.LastActivationDate,
+			};
 			chat.NewCard = null;
+
+			if (chat.User.ChatMode == Domain.Enums.ChatMode.Guest)
+			{
+				chat.User.ChatMode = Domain.Enums.ChatMode.ExistingUser;
+				_userRepository.Update(chat.User);
+			}
 		}
 	}
 }

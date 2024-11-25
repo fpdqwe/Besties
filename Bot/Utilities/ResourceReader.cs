@@ -16,14 +16,14 @@ namespace Bot.Utilities
 		{
 			if (regionName == null) throw new ArgumentNullException("Region name");
 			if (IsInitialized == false) InitReader();
-			var result = _regions.FirstOrDefault(r => r.Name == regionName);
-			if (result == null) return 0;
+			var result = _regions.FirstOrDefault(r => r.Name.ToLower() == regionName);
+			if (result == null) return 1;
 			return result.Index;
 		}
 		public static string GetRegionName(byte id)
 		{
 			if (id >= _regions.Count - 1) return EMPTY_REGION;
-			return _regions[id].Name;
+			return _regions[id - 1].Name;
 		}
 		public static void InitReader()
 		{

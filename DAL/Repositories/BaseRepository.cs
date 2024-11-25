@@ -49,7 +49,6 @@ namespace DAL.Repositories
 				catch (Exception ex) { return false; }
 			}
 		}
-
 		public async Task<T> Find(long entityId)
 		{
 			using (var context = CreateDatabaseContext())
@@ -57,7 +56,6 @@ namespace DAL.Repositories
 				return await context.Set<T>().FindAsync(entityId);
 			}
 		}
-
 		public async Task<List<T>> GetAll()
 		{
 			using (var context = CreateDatabaseContext())
@@ -65,7 +63,6 @@ namespace DAL.Repositories
 				return await context.Set<T>().ToListAsync();
 			}
 		}
-
 		public async Task<T> SaveOrUdate(T entity)
 		{
 			var iDbEntity = entity as IDbEntity;
@@ -76,7 +73,6 @@ namespace DAL.Repositories
 			return iDbEntity.GetPrimaryKey() == 0 ? await Add(entity) : await Update(entity);
 
 		}
-
 		public async Task<T> Update(T entity)
 		{
 			using (var context = CreateDatabaseContext())

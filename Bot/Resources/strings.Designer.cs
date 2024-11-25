@@ -61,20 +61,56 @@ namespace Bot.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Сменить возраст.
+        /// </summary>
+        internal static string AgeCommand {
+            get {
+                return ResourceManager.GetString("AgeCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Сколько тебе лет?.
+        /// </summary>
+        internal static string AgeQuestion {
+            get {
+                return ResourceManager.GetString("AgeQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Я не пью.
         /// </summary>
-        internal static string alcoMarkerNegative {
+        internal static string AlcoNegative {
             get {
-                return ResourceManager.GetString("alcoMarkerNegative", resourceCulture);
+                return ResourceManager.GetString("AlcoNegative", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Я пью.
         /// </summary>
-        internal static string alcoMarkerPositive {
+        internal static string AlcoPositive {
             get {
-                return ResourceManager.GetString("alcoMarkerPositive", resourceCulture);
+                return ResourceManager.GetString("AlcoPositive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Да, подтверждаю.
+        /// </summary>
+        internal static string ApproveDateiled {
+            get {
+                return ResourceManager.GetString("ApproveDateiled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Да.
+        /// </summary>
+        internal static string ApproveShort {
+            get {
+                return ResourceManager.GetString("ApproveShort", resourceCulture);
             }
         }
         
@@ -97,56 +133,128 @@ namespace Bot.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Редактировать мою анкету.
+        ///   Ищет локализованную строку, похожую на Изменения подтверждены.
         /// </summary>
-        internal static string cardEditCommand {
+        internal static string CardEditApproveReact {
             get {
-                return ResourceManager.GetString("cardEditCommand", resourceCulture);
+                return ResourceManager.GetString("CardEditApproveReact", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Сменить возраст.
+        ///   Ищет локализованную строку, похожую на Редактировать мою анкету.
         /// </summary>
-        internal static string changeAgeCommand {
+        internal static string CardEditCommand {
             get {
-                return ResourceManager.GetString("changeAgeCommand", resourceCulture);
+                return ResourceManager.GetString("CardEditCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Изменить описание.
+        /// </summary>
+        internal static string ChangeOnlyDescription {
+            get {
+                return ResourceManager.GetString("ChangeOnlyDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Изменить имя.
+        /// </summary>
+        internal static string ChangeOnlyName {
+            get {
+                return ResourceManager.GetString("ChangeOnlyName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Изменить фото.
+        /// </summary>
+        internal static string ChangeOnlyPhoto {
+            get {
+                return ResourceManager.GetString("ChangeOnlyPhoto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Подтвердить изменения?.
+        /// </summary>
+        internal static string ConfirmNewCardQuestion {
+            get {
+                return ResourceManager.GetString("ConfirmNewCardQuestion", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Сменить описание анкеты.
         /// </summary>
-        internal static string changeDescriptionCommand {
+        internal static string DescriptionCommand {
             get {
-                return ResourceManager.GetString("changeDescriptionCommand", resourceCulture);
+                return ResourceManager.GetString("DescriptionCommand", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Сменить имя.
+        ///   Ищет локализованную строку, похожую на Теперь самое главное - описание вашей анкеты. Расскажите немного о себе, ваших хобби и увлечениях.
         /// </summary>
-        internal static string changeNameCommand {
+        internal static string DescriptionQuestion {
             get {
-                return ResourceManager.GetString("changeNameCommand", resourceCulture);
+                return ResourceManager.GetString("DescriptionQuestion", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Нет, ещё подумаю.
+        ///   Ищет локализованную строку, похожую на Вы пьёте?.
         /// </summary>
-        internal static string confirmationNegative {
+        internal static string DrinkQuestion {
             get {
-                return ResourceManager.GetString("confirmationNegative", resourceCulture);
+                return ResourceManager.GetString("DrinkQuestion", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Да, подтверждаю.
+        ///   Ищет локализованную строку, похожую на Сейчас твоя анкета не участвует в поиске, чтобы это исправить нужно её заполнить.
         /// </summary>
-        internal static string confirmationPositive {
+        internal static string EmptyCardError {
             get {
-                return ResourceManager.GetString("confirmationPositive", resourceCulture);
+                return ResourceManager.GetString("EmptyCardError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на На данный момент нет подходящих вам анкет, попробуйте позже.
+        /// </summary>
+        internal static string EmptyCardPoolError {
+            get {
+                return ResourceManager.GetString("EmptyCardPoolError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Невозможно запустить поиск с пустой анкетой, сначала создайте её.
+        /// </summary>
+        internal static string EmptyCardSearchError {
+            get {
+                return ResourceManager.GetString("EmptyCardSearchError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Теперь определимся с полом.
+        /// </summary>
+        internal static string GenderCommand {
+            get {
+                return ResourceManager.GetString("GenderCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на женский.
+        /// </summary>
+        internal static string GenderFemale {
+            get {
+                return ResourceManager.GetString("GenderFemale", resourceCulture);
             }
         }
         
@@ -156,6 +264,15 @@ namespace Bot.Resources {
         internal static string GenderFemaleConst {
             get {
                 return ResourceManager.GetString("GenderFemaleConst", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на мужской.
+        /// </summary>
+        internal static string GenderMale {
+            get {
+                return ResourceManager.GetString("GenderMale", resourceCulture);
             }
         }
         
@@ -178,79 +295,70 @@ namespace Bot.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на поиск людей по указанному доходу.
+        ///   Ищет локализованную строку, похожую на не важен.
         /// </summary>
-        internal static string greedyModeDescription {
+        internal static string GenderNS {
             get {
-                return ResourceManager.GetString("greedyModeDescription", resourceCulture);
+                return ResourceManager.GetString("GenderNS", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Для начала нужно создать анкету....
         /// </summary>
-        internal static string greetingHookRu {
+        internal static string GreetingHookRu {
             get {
-                return ResourceManager.GetString("greetingHookRu", resourceCulture);
+                return ResourceManager.GetString("GreetingHookRu", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Приветствую, .
         /// </summary>
-        internal static string greetingRu1 {
+        internal static string GreetingRu1 {
             get {
-                return ResourceManager.GetString("greetingRu1", resourceCulture);
+                return ResourceManager.GetString("GreetingRu1", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Добро пожаловать, .
         /// </summary>
-        internal static string greetingRu2 {
+        internal static string GreetingRu2 {
             get {
-                return ResourceManager.GetString("greetingRu2", resourceCulture);
+                return ResourceManager.GetString("GreetingRu2", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Здравствуйте, .
         /// </summary>
-        internal static string greetingRu3 {
+        internal static string GreetingRu3 {
             get {
-                return ResourceManager.GetString("greetingRu3", resourceCulture);
+                return ResourceManager.GetString("GreetingRu3", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Рад видеть вас, .
         /// </summary>
-        internal static string greetingRu4 {
+        internal static string GreetingRu4 {
             get {
-                return ResourceManager.GetString("greetingRu4", resourceCulture);
+                return ResourceManager.GetString("GreetingRu4", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Привет, .
         /// </summary>
-        internal static string greetingRu5 {
+        internal static string GreetingRu5 {
             get {
-                return ResourceManager.GetString("greetingRu5", resourceCulture);
+                return ResourceManager.GetString("GreetingRu5", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на поиск людей без вредных привычек (курение, алкоголь).
-        /// </summary>
-        internal static string healthyModeDescription {
-            get {
-                return ResourceManager.GetString("healthyModeDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на C:\Users\fpdcore\source\repos\Besties\Bot\Resources\Images\.
+        ///   Ищет локализованную строку, похожую на C:\Users\fpdcore\Pictures\Bot\.
         /// </summary>
         internal static string imagesPath {
             get {
@@ -277,47 +385,290 @@ namespace Bot.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Пол не распознан. Пожалуйста, воспользуйтесь кнопками для ответа.
+        /// </summary>
+        internal static string InvalidGenderError {
+            get {
+                return ResourceManager.GetString("InvalidGenderError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Посмотреть лайки.
+        /// </summary>
+        internal static string LookIncomingOffersCommand {
+            get {
+                return ResourceManager.GetString("LookIncomingOffersCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Включить анкету.
         /// </summary>
-        internal static string makeCardActiveCommand {
+        internal static string MakeCardActiveCommand {
             get {
-                return ResourceManager.GetString("makeCardActiveCommand", resourceCulture);
+                return ResourceManager.GetString("MakeCardActiveCommand", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Выключить анкету.
         /// </summary>
-        internal static string makeCardInactiveCommand {
+        internal static string MakeCardInactiveCommand {
             get {
-                return ResourceManager.GetString("makeCardInactiveCommand", resourceCulture);
+                return ResourceManager.GetString("MakeCardInactiveCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Вернуться в меню.
+        /// </summary>
+        internal static string MenuCommand {
+            get {
+                return ResourceManager.GetString("MenuCommand", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Готово!.
         /// </summary>
-        internal static string menuEndCommand {
+        internal static string MenuEndCommand {
             get {
-                return ResourceManager.GetString("menuEndCommand", resourceCulture);
+                return ResourceManager.GetString("MenuEndCommand", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Итак, что вы хотите сделать?.
         /// </summary>
-        internal static string menuText {
+        internal static string MenuMessageText {
             get {
-                return ResourceManager.GetString("menuText", resourceCulture);
+                return ResourceManager.GetString("MenuMessageText", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на C:\Users\fpdcore\source\repos\Besties\Bot\Resources\Regions.xml.
+        ///   Ищет локализованную строку, похожую на /start.
+        /// </summary>
+        internal static string MenuTelegramCommand {
+            get {
+                return ResourceManager.GetString("MenuTelegramCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Сменить имя.
+        /// </summary>
+        internal static string NameCommand {
+            get {
+                return ResourceManager.GetString("NameCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Как тебя зовут?.
+        /// </summary>
+        internal static string NameQuestion {
+            get {
+                return ResourceManager.GetString("NameQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Хорошо, давай начнём сначала.
+        /// </summary>
+        internal static string NewCardRejectReact {
+            get {
+                return ResourceManager.GetString("NewCardRejectReact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на 💖 лайк.
+        /// </summary>
+        internal static string OfferApprove {
+            get {
+                return ResourceManager.GetString("OfferApprove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на 💥 в помойку.
+        /// </summary>
+        internal static string OfferReject {
+            get {
+                return ResourceManager.GetString("OfferReject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Лайк отправлен, продолжаем просмотр?.
+        /// </summary>
+        internal static string OfferSenderApproveReact {
+            get {
+                return ResourceManager.GetString("OfferSenderApproveReact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Анкета отклонена.
+        /// </summary>
+        internal static string OfferSenderRejectReact {
+            get {
+                return ResourceManager.GetString("OfferSenderRejectReact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Возраст: .
+        /// </summary>
+        internal static string ParamAge {
+            get {
+                return ResourceManager.GetString("ParamAge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Описание: .
+        /// </summary>
+        internal static string ParamDescription {
+            get {
+                return ResourceManager.GetString("ParamDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Употребляете алкоголь: .
+        /// </summary>
+        internal static string ParamDrinking {
+            get {
+                return ResourceManager.GetString("ParamDrinking", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Пол: .
+        /// </summary>
+        internal static string ParamGender {
+            get {
+                return ResourceManager.GetString("ParamGender", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Имя: .
+        /// </summary>
+        internal static string ParamName {
+            get {
+                return ResourceManager.GetString("ParamName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Регион - .
+        /// </summary>
+        internal static string ParamRegion {
+            get {
+                return ResourceManager.GetString("ParamRegion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Употребляете никотин: .
+        /// </summary>
+        internal static string ParamSmoking {
+            get {
+                return ResourceManager.GetString("ParamSmoking", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Пол партнёра: .
+        /// </summary>
+        internal static string ParamTargetGender {
+            get {
+                return ResourceManager.GetString("ParamTargetGender", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Отправь фото для анкеты.
+        /// </summary>
+        internal static string PhotoQuestion {
+            get {
+                return ResourceManager.GetString("PhotoQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на 002.
+        /// </summary>
+        internal static string QueryCode_OfferRecepient {
+            get {
+                return ResourceManager.GetString("QueryCode_OfferRecepient", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на 001.
+        /// </summary>
+        internal static string QueryCode_OfferSender {
+            get {
+                return ResourceManager.GetString("QueryCode_OfferSender", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на ✨ Вы понравились одному человеку!.
+        /// </summary>
+        internal static string RecipientNotificationMessage {
+            get {
+                return ResourceManager.GetString("RecipientNotificationMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Из какого ты города?.
+        /// </summary>
+        internal static string RegionQuestion {
+            get {
+                return ResourceManager.GetString("RegionQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на C:\Users\fpdcore\Source\Repos\fpdqwe\Besties\Bot\Resources\Regions.xml.
         /// </summary>
         internal static string regionsXmlPath {
             get {
                 return ResourceManager.GetString("regionsXmlPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Нет, ещё подумаю.
+        /// </summary>
+        internal static string RejectDetailed {
+            get {
+                return ResourceManager.GetString("RejectDetailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Нет.
+        /// </summary>
+        internal static string RejectShort {
+            get {
+                return ResourceManager.GetString("RejectShort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Составить анкету заново.
+        /// </summary>
+        internal static string RemakeCardCommand {
+            get {
+                return ResourceManager.GetString("RemakeCardCommand", resourceCulture);
             }
         }
         
@@ -331,56 +682,155 @@ namespace Bot.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Поиск.
+        ///   Ищет локализованную строку, похожую на 🔎 Поиск.
         /// </summary>
-        internal static string searchCommand {
+        internal static string SearchCommand {
             get {
-                return ResourceManager.GetString("searchCommand", resourceCulture);
+                return ResourceManager.GetString("SearchCommand", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Параметры поиска.
         /// </summary>
-        internal static string searchParamsCommand {
+        internal static string SearchParamsCommand {
             get {
-                return ResourceManager.GetString("searchParamsCommand", resourceCulture);
+                return ResourceManager.GetString("SearchParamsCommand", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Показать изменённую анкету.
+        ///   Ищет локализованную строку, похожую на /search.
         /// </summary>
-        internal static string showMyCardChangesCommand {
+        internal static string SearchTelegramCommand {
             get {
-                return ResourceManager.GetString("showMyCardChangesCommand", resourceCulture);
+                return ResourceManager.GetString("SearchTelegramCommand", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Показать мою анкету.
+        ///   Ищет локализованную строку, похожую на ✨ Вам ответили взаимностью.
         /// </summary>
-        internal static string showMyCardCommand {
+        internal static string SenderNotificationMessage {
             get {
-                return ResourceManager.GetString("showMyCardCommand", resourceCulture);
+                return ResourceManager.GetString("SenderNotificationMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на ===*===*===.
+        /// </summary>
+        internal static string Separator {
+            get {
+                return ResourceManager.GetString("Separator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на 🎫 Моя анкета.
+        /// </summary>
+        internal static string ShowCardCommand {
+            get {
+                return ResourceManager.GetString("ShowCardCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на /editcatd.
+        /// </summary>
+        internal static string ShowCardTelegramCommand {
+            get {
+                return ResourceManager.GetString("ShowCardTelegramCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Оставить как есть.
+        /// </summary>
+        internal static string SkipChange {
+            get {
+                return ResourceManager.GetString("SkipChange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Изменение пропущено.
+        /// </summary>
+        internal static string SkipReply {
+            get {
+                return ResourceManager.GetString("SkipReply", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Я не курю.
         /// </summary>
-        internal static string smokingMarkerNegative {
+        internal static string SmokingNegative {
             get {
-                return ResourceManager.GetString("smokingMarkerNegative", resourceCulture);
+                return ResourceManager.GetString("SmokingNegative", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Ищет локализованную строку, похожую на Я курю.
         /// </summary>
-        internal static string smokingMarkerPositive {
+        internal static string SmokingPositive {
             get {
-                return ResourceManager.GetString("smokingMarkerPositive", resourceCulture);
+                return ResourceManager.GetString("SmokingPositive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Вы курите?.
+        /// </summary>
+        internal static string SmokingQuestion {
+            get {
+                return ResourceManager.GetString("SmokingQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Фото анкеты успешно изменено.
+        /// </summary>
+        internal static string SuccessPhotoChange {
+            get {
+                return ResourceManager.GetString("SuccessPhotoChange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Ищу девушку.
+        /// </summary>
+        internal static string TargetGenderFemale {
+            get {
+                return ResourceManager.GetString("TargetGenderFemale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Ищу парня.
+        /// </summary>
+        internal static string TargetGenderMale {
+            get {
+                return ResourceManager.GetString("TargetGenderMale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Не приципиально.
+        /// </summary>
+        internal static string TargetGenderNotSpecified {
+            get {
+                return ResourceManager.GetString("TargetGenderNotSpecified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Кого хочешь найти?.
+        /// </summary>
+        internal static string TargetGenderQuestion {
+            get {
+                return ResourceManager.GetString("TargetGenderQuestion", resourceCulture);
             }
         }
     }

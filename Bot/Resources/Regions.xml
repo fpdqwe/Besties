@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <root>
-	<Region Id="1" Name="Москва и Московская область">москва</Region>
+	<Region Id="1" Name="Москва">москва</Region>
 	<Region Id="2" Name="Питер">питер</Region>
 	<Region Id="3" Name="Новосибирск">новосибирск</Region>
 	<Region Id="4" Name="Екатеринбург">екатеринбург</Region>

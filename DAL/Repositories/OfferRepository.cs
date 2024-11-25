@@ -15,7 +15,8 @@ namespace DAL.Repositories
 		{
 			using (var context = CreateDatabaseContext())
 			{
-				return await context.Offers.Where(x => x.RecipientId == id && x.RecipientApprovalDate != null)
+				return await context.Offers.Where(x => x.RecipientId == id)
+					.OrderBy(x => x.DateCreated)
 					.ToListAsync();
 			}
 		}
@@ -25,6 +26,7 @@ namespace DAL.Repositories
 			using (var context = CreateDatabaseContext())
 			{
 				return await context.Offers.Where(x => x.SenderId == id)
+					.OrderBy(x => x.DateCreated)
 					.ToListAsync();
 			}
 		}
