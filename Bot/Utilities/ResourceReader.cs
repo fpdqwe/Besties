@@ -74,7 +74,6 @@ namespace Bot.Utilities
 				}
 			}
 		}
-
 		private class Region
 		{
 			public byte Index { get; private set; }

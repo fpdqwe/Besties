@@ -11,7 +11,7 @@ namespace DAL
 
 		public ContextManager()
 		{
-			_connectionString = Resources.strings.server2;
+			_connectionString = Secrets.Server2;
 		}
 		public ApplicationDbContext CreateDatabaseContext()
 		{

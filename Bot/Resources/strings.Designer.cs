@@ -115,15 +115,6 @@ namespace Bot.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на 2130370689:AAFG7q1kKssieObubR8I1UcY4VxaWTs1xw4.
-        /// </summary>
-        internal static string botToken {
-            get {
-                return ResourceManager.GetString("botToken", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Ищет локализованную строку, похожую на Не удалось перевести возраст в число :(.
         /// </summary>
         internal static string CantParseAgeError {

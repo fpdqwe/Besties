@@ -1,0 +1,375 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="GreetingHookRu" xml:space="preserve">
+    <value>Для начала нужно создать анкету...</value>
+  </data>
+  <data name="GreetingRu1" xml:space="preserve">
+    <value>Приветствую, </value>
+  </data>
+  <data name="GreetingRu2" xml:space="preserve">
+    <value>Добро пожаловать, </value>
+  </data>
+  <data name="GreetingRu3" xml:space="preserve">
+    <value>Здравствуйте, </value>
+  </data>
+  <data name="GreetingRu4" xml:space="preserve">
+    <value>Рад видеть вас, </value>
+  </data>
+  <data name="GreetingRu5" xml:space="preserve">
+    <value>Привет, </value>
+  </data>
+  <data name="AlcoPositive" xml:space="preserve">
+    <value>Я пью</value>
+  </data>
+  <data name="AlcoNegative" xml:space="preserve">
+    <value>Я не пью</value>
+  </data>
+  <data name="SmokingPositive" xml:space="preserve">
+    <value>Я курю</value>
+  </data>
+  <data name="SmokingNegative" xml:space="preserve">
+    <value>Я не курю</value>
+  </data>
+  <data name="MakeCardActiveCommand" xml:space="preserve">
+    <value>Включить анкету</value>
+  </data>
+  <data name="MakeCardInactiveCommand" xml:space="preserve">
+    <value>Выключить анкету</value>
+  </data>
+  <data name="NameCommand" xml:space="preserve">
+    <value>Сменить имя</value>
+  </data>
+  <data name="DescriptionCommand" xml:space="preserve">
+    <value>Сменить описание анкеты</value>
+  </data>
+  <data name="AgeCommand" xml:space="preserve">
+    <value>Сменить возраст</value>
+  </data>
+  <data name="ShowCardCommand" xml:space="preserve">
+    <value>🎫 Моя анкета</value>
+  </data>
+  <data name="MenuEndCommand" xml:space="preserve">
+    <value>Готово!</value>
+  </data>
+  <data name="ApproveDateiled" xml:space="preserve">
+    <value>Да, подтверждаю</value>
+  </data>
+  <data name="RejectDetailed" xml:space="preserve">
+    <value>Нет, ещё подумаю</value>
+  </data>
+  <data name="MenuMessageText" xml:space="preserve">
+    <value>Итак, что вы хотите сделать?</value>
+  </data>
+  <data name="SearchCommand" xml:space="preserve">
+    <value>🔎 Поиск</value>
+  </data>
+  <data name="SearchParamsCommand" xml:space="preserve">
+    <value>Параметры поиска</value>
+  </data>
+  <data name="CardEditCommand" xml:space="preserve">
+    <value>Редактировать мою анкету</value>
+  </data>
+  <data name="regionsXmlPath" xml:space="preserve">
+    <value>C:\Users\fpdcore\Source\Repos\fpdqwe\Besties\Bot\Resources\Regions.xml</value>
+  </data>
+  <data name="resourcesPath" xml:space="preserve">
+    <value>C:\Users\fpdcore\Source\Repos\fpdqwe\Besties\Bot\Resources\</value>
+  </data>
+  <data name="imagesPath" xml:space="preserve">
+    <value>C:\Users\fpdcore\Pictures\Bot\</value>
+  </data>
+  <data name="InvalidAgeError" xml:space="preserve">
+    <value>Недопустимый возраст</value>
+  </data>
+  <data name="CantParseAgeError" xml:space="preserve">
+    <value>Не удалось перевести возраст в число :(</value>
+  </data>
+  <data name="GenderMaleConst" xml:space="preserve">
+    <value>Я парень</value>
+  </data>
+  <data name="GenderFemaleConst" xml:space="preserve">
+    <value>Я девушка</value>
+  </data>
+  <data name="GenderNeutralConst" xml:space="preserve">
+    <value>Не указывать</value>
+  </data>
+  <data name="InvalidAnswerError" xml:space="preserve">
+    <value>Ответ не распознан. Пожалуйста, повторите попытку</value>
+  </data>
+  <data name="QueryCode_OfferSender" xml:space="preserve">
+    <value>001</value>
+  </data>
+  <data name="QueryCode_OfferRecepient" xml:space="preserve">
+    <value>002</value>
+  </data>
+  <data name="InvalidGenderError" xml:space="preserve">
+    <value>Пол не распознан. Пожалуйста, воспользуйтесь кнопками для ответа</value>
+  </data>
+  <data name="GenderCommand" xml:space="preserve">
+    <value>Теперь определимся с полом</value>
+  </data>
+  <data name="TargetGenderMale" xml:space="preserve">
+    <value>Ищу парня</value>
+  </data>
+  <data name="TargetGenderFemale" xml:space="preserve">
+    <value>Ищу девушку</value>
+  </data>
+  <data name="TargetGenderNotSpecified" xml:space="preserve">
+    <value>Не приципиально</value>
+  </data>
+  <data name="RegionQuestion" xml:space="preserve">
+    <value>Из какого ты города?</value>
+  </data>
+  <data name="SuccessPhotoChange" xml:space="preserve">
+    <value>Фото анкеты успешно изменено</value>
+  </data>
+  <data name="TargetGenderQuestion" xml:space="preserve">
+    <value>Кого хочешь найти?</value>
+  </data>
+  <data name="NameQuestion" xml:space="preserve">
+    <value>Как тебя зовут?</value>
+  </data>
+  <data name="SmokingQuestion" xml:space="preserve">
+    <value>Вы курите?</value>
+  </data>
+  <data name="DrinkQuestion" xml:space="preserve">
+    <value>Вы пьёте?</value>
+  </data>
+  <data name="ApproveShort" xml:space="preserve">
+    <value>Да</value>
+  </data>
+  <data name="RejectShort" xml:space="preserve">
+    <value>Нет</value>
+  </data>
+  <data name="DescriptionQuestion" xml:space="preserve">
+    <value>Теперь самое главное - описание вашей анкеты. Расскажите немного о себе, ваших хобби и увлечениях</value>
+  </data>
+  <data name="SkipChange" xml:space="preserve">
+    <value>Оставить как есть</value>
+  </data>
+  <data name="SkipReply" xml:space="preserve">
+    <value>Изменение пропущено</value>
+  </data>
+  <data name="PhotoQuestion" xml:space="preserve">
+    <value>Отправь фото для анкеты</value>
+  </data>
+  <data name="GenderMale" xml:space="preserve">
+    <value>мужской</value>
+  </data>
+  <data name="GenderFemale" xml:space="preserve">
+    <value>женский</value>
+  </data>
+  <data name="GenderNS" xml:space="preserve">
+    <value>не важен</value>
+  </data>
+  <data name="ParamName" xml:space="preserve">
+    <value>Имя: </value>
+  </data>
+  <data name="ParamAge" xml:space="preserve">
+    <value>Возраст: </value>
+  </data>
+  <data name="ParamGender" xml:space="preserve">
+    <value>Пол: </value>
+  </data>
+  <data name="ParamTargetGender" xml:space="preserve">
+    <value>Пол партнёра: </value>
+  </data>
+  <data name="ParamRegion" xml:space="preserve">
+    <value>Регион - </value>
+  </data>
+  <data name="Separator" xml:space="preserve">
+    <value>===*===*===</value>
+  </data>
+  <data name="ParamDescription" xml:space="preserve">
+    <value>Описание: </value>
+  </data>
+  <data name="ParamSmoking" xml:space="preserve">
+    <value>Употребляете никотин: </value>
+  </data>
+  <data name="ParamDrinking" xml:space="preserve">
+    <value>Употребляете алкоголь: </value>
+  </data>
+  <data name="ConfirmNewCardQuestion" xml:space="preserve">
+    <value>Подтвердить изменения?</value>
+  </data>
+  <data name="NewCardRejectReact" xml:space="preserve">
+    <value>Хорошо, давай начнём сначала</value>
+  </data>
+  <data name="CardEditApproveReact" xml:space="preserve">
+    <value>Изменения подтверждены</value>
+  </data>
+  <data name="AgeQuestion" xml:space="preserve">
+    <value>Сколько тебе лет?</value>
+  </data>
+  <data name="EmptyCardError" xml:space="preserve">
+    <value>Сейчас твоя анкета не участвует в поиске, чтобы это исправить нужно её заполнить</value>
+  </data>
+  <data name="SearchTelegramCommand" xml:space="preserve">
+    <value>/search</value>
+  </data>
+  <data name="ShowCardTelegramCommand" xml:space="preserve">
+    <value>/editcatd</value>
+  </data>
+  <data name="MenuTelegramCommand" xml:space="preserve">
+    <value>/start</value>
+  </data>
+  <data name="EmptyCardSearchError" xml:space="preserve">
+    <value>Невозможно запустить поиск с пустой анкетой, сначала создайте её</value>
+  </data>
+  <data name="EmptyCardPoolError" xml:space="preserve">
+    <value>На данный момент нет подходящих вам анкет, попробуйте позже</value>
+  </data>
+  <data name="OfferSenderApproveReact" xml:space="preserve">
+    <value>Лайк отправлен, продолжаем просмотр?</value>
+  </data>
+  <data name="OfferSenderRejectReact" xml:space="preserve">
+    <value>Анкета отклонена</value>
+  </data>
+  <data name="OfferApprove" xml:space="preserve">
+    <value>💖 лайк</value>
+  </data>
+  <data name="OfferReject" xml:space="preserve">
+    <value>💥 в помойку</value>
+  </data>
+  <data name="RecipientNotificationMessage" xml:space="preserve">
+    <value>✨ Вы понравились одному человеку!</value>
+  </data>
+  <data name="SenderNotificationMessage" xml:space="preserve">
+    <value>✨ Вам ответили взаимностью</value>
+  </data>
+  <data name="ChangeOnlyName" xml:space="preserve">
+    <value>Изменить имя</value>
+  </data>
+  <data name="ChangeOnlyDescription" xml:space="preserve">
+    <value>Изменить описание</value>
+  </data>
+  <data name="ChangeOnlyPhoto" xml:space="preserve">
+    <value>Изменить фото</value>
+  </data>
+  <data name="RemakeCardCommand" xml:space="preserve">
+    <value>Составить анкету заново</value>
+  </data>
+  <data name="MenuCommand" xml:space="preserve">
+    <value>Вернуться в меню</value>
+  </data>
+  <data name="LookIncomingOffersCommand" xml:space="preserve">
+    <value>Посмотреть лайки</value>
+  </data>
+</root>

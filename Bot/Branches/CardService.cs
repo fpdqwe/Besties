@@ -371,7 +371,7 @@ namespace Bot.Branches
 			unit.Chat.SetReply(HandleCardMenuReply);
 		}
 		// Keyboard Markups
-		private static ReplyKeyboardMarkup GetCardMenuMarkup()
+		private static IReplyMarkup GetCardMenuMarkup()
 		{
 			return new ReplyKeyboardMarkup(
 				new KeyboardButton[][]{
@@ -392,16 +392,19 @@ namespace Bot.Branches
 				OneTimeKeyboard = true
 			};
 		}
-		private static ReplyKeyboardMarkup GetAgeMarkup(Card card)
+		private static IReplyMarkup GetAgeMarkup(Card card)
 		{
 			if (card.Age != -1)
 				return new ReplyKeyboardMarkup(new KeyboardButton(card.Age.ToString()));
 			else
-				return null;
+				return new ReplyKeyboardRemove();
 		}
-		private static ReplyKeyboardMarkup GetRegionMarkup(Card card)
+		private static IReplyMarkup GetRegionMarkup(Card card)
 		{
-			if (card.Region == 0) return null;
+			if (card.Region == 0)
+			{
+				return new ReplyKeyboardMarkup(new KeyboardButton("Москва"));
+			}
 			return new ReplyKeyboardMarkup(new KeyboardButton(
 				Utilities.ResourceReader.GetRegionName(card.Region)))
 			{
@@ -409,16 +412,16 @@ namespace Bot.Branches
 				OneTimeKeyboard = true
 			};
 		}
-		private static ReplyKeyboardMarkup GetDescriptionMarkup(Card card)
+		private static IReplyMarkup GetDescriptionMarkup(Card card)
 		{
-			if (card.Description == null) return null;
+			if (card.Description == null) return new ReplyKeyboardRemove();
 			return new ReplyKeyboardMarkup(new KeyboardButton(strings.SkipChange))
 			{
 				ResizeKeyboard = true,
 				OneTimeKeyboard = true
 			};
 		}
-		private static ReplyKeyboardMarkup GetConfirmMarkup()
+		private static IReplyMarkup GetConfirmMarkup()
 		{
 			return new ReplyKeyboardMarkup(new KeyboardButton[]
 			{
@@ -430,7 +433,7 @@ namespace Bot.Branches
 				OneTimeKeyboard = false
 			};
 		}
-		private static ReplyKeyboardMarkup GetGenderMarkup()
+		private static IReplyMarkup GetGenderMarkup()
 		{
 			return new ReplyKeyboardMarkup(new KeyboardButton[]
 			{
@@ -465,18 +468,18 @@ namespace Bot.Branches
 				{ ResizeKeyboard = true, OneTimeKeyboard = true };
 			}
 		}
-		private static ReplyKeyboardMarkup GetPhotoMarkup(Card card)
+		private static IReplyMarkup GetPhotoMarkup(Card card)
 		{
-			if (!Utilities.ResourceReader.IsImageExists(card.Id)) return null;
+			if (!Utilities.ResourceReader.IsImageExists(card.Id)) return new ReplyKeyboardRemove();
 			return new ReplyKeyboardMarkup(new KeyboardButton(strings.SkipChange))
 			{
 				ResizeKeyboard = true,
 				OneTimeKeyboard = true,
 			};
 		}
-		private static ReplyKeyboardMarkup GetNameMarkup(Card card)
+		private static IReplyMarkup GetNameMarkup(Card card)
 		{
-			if (card.Age == -1) return null;
+			if (card.Age == -1) return new ReplyKeyboardRemove();
 			return new ReplyKeyboardMarkup(new KeyboardButton(card.Name))
 			{
 				ResizeKeyboard = true,

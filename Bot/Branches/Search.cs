@@ -140,7 +140,8 @@ namespace Bot.Branches
 			var queryData = ReadSearchQuery(unit.Callback.Data);
 
 			var offerRecipient = await BotService.ChatManager.Find(Convert.ToInt64(queryData[2]));
-			
+			await BotService.ChatManager.UpdateIncomingOffers(offerRecipient);
+
 			await SendOfferToRecipientAsync(unit, offerRecipient);
 
 			offerRecipient.SetReply(GetOfferRecipientReply);

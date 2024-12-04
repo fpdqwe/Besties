@@ -56,7 +56,6 @@ namespace Bot
 			else if (chat.IsActive == false && chat.User.ChatMode == ChatMode.Guest)
 			{
 				await Menu.MeetUser(chatUnit);
-				chat.SetReply(Menu.AwaitMenuAction);
 				return;
 			}
 			await CheckForCommandsAsync(chatUnit);

@@ -9,7 +9,7 @@ namespace Bot
 		public static TelegramBotClient Init()
 		{
 			using var cts = new CancellationTokenSource();
-			var botToken = Resources.strings.botToken;
+			var botToken = Secrets.BotToken;
 			var bot = new TelegramBotClient(botToken);
 			
 			var ro = new ReceiverOptions

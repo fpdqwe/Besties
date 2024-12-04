@@ -18,7 +18,6 @@ namespace Domain.Entities
 		public bool? SenderApproval { get; set; }
 		public DateTime DateCreated { get; set; } = DateTime.UtcNow;
 		public DateTime? RecipientApprovalDate { get; set; }
-		public bool IsNew { get; set; }
 
 		public long GetPrimaryKey()
 		{

@@ -44,7 +44,7 @@ namespace Bot.Types
                 }
             }
         }
-        public void SetOutgoingOffers(List<Offer> offers)
+        public void SetOutgoingOffers(IList<Offer> offers)
         {
             _checkedOffers = offers.Where(x => x.SenderApproval == true).ToList();
         }
@@ -59,6 +59,7 @@ namespace Bot.Types
 		public async void SkipIncomingOffer(long senderId, bool approve)
         {
             var offer = _incomingOffers.FirstOrDefault(x => x.SenderId == senderId);
+            if (offer == null) return;
             offer.RecipientApproval = approve;
             offer.RecipientApprovalDate = DateTime.UtcNow;
             await BotService.ChatManager.SaveOrUpdateOffer(offer);
@@ -102,7 +103,6 @@ namespace Bot.Types
 				SenderId = chat.Id,
 				RecipientId = newOffer.Id,
                 SenderApproval = false,
-                IsNew = true,
 			};
             newCurrent = await BotService.ChatManager.SaveOrUpdateOffer(newCurrent);
 			_currentOffer = newCurrent;

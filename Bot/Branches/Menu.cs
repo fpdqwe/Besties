@@ -16,6 +16,7 @@ namespace Bot.Branches
 			{
 				await unit.Client.SendTextMessageAsync(unit.Id, strings.EmptyCardError);
 				await CardService.CardRemakeAsync(unit.Client, unit.Chat);
+				unit.Chat.SetActive(true);
 				return;
 			}
 			if (unit.Card.IsActive == false && unit.Chat.User.ChatMode == ChatMode.ExistingUser)

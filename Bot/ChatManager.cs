@@ -62,6 +62,11 @@ namespace Bot
 		{
 			return await FindCardByUserId(id);
 		}
+		public async Task UpdateIncomingOffers(Chat chat)
+		{
+			var offers = await GetIncomingOffers(chat.Id);
+			chat.SearchScopes.SetIncomingOffers(offers);
+		}
 		private async Task<Chat> CreateNewChat(User user)
 		{
 			user.Card = await FindCardByUserId(user.Id);
@@ -105,7 +110,7 @@ namespace Bot
 		private async Task<Card> FindCardByUserId(long id)
 		{
 			var card = await _cardRepository.Find(id);
-			if (card == null) throw new Exception("А какого хуя у тебя карточка не создалась то епт");
+			if (card == null) throw new Exception("Fatal error: card not found");
 			return card;
 		}
 		private async Task<Card> FindRandomCard(Card card, SearchScopes scopes)

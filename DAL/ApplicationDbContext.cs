@@ -8,8 +8,6 @@ namespace DAL
 	{
 		public DbSet<User> Users { get; set; }
 		public DbSet<Card> Cards { get; set; }
-		public DbSet<Comment> Comments { get; set; }
-		public DbSet<Meet> Meets { get; set; }
 		public DbSet<Offer> Offers { get; set; }
 
 		public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)

@@ -10,6 +10,10 @@ using Telegram.Bot.Types.Enums;
 
 namespace Bot.Types
 {
+	/// <summary>
+	/// Класс не несёт никакой функциональности, нужен для того чтобы повысить читаемость кода
+	/// Отражает условную единицу чата (1 апдейт и всё что нужно чтобы его обработать)
+	/// </summary>
 	public class Unit
 	{
 		public ITelegramBotClient Client { get; private set; }
