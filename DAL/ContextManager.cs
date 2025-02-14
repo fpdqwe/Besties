@@ -9,9 +9,9 @@ namespace DAL
 	{
 		private readonly string _connectionString;
 
-		public ContextManager()
+		public ContextManager(IOptions<DbOptions> options)
 		{
-			_connectionString = Secrets.Server2;
+			_connectionString = options.Value.ConnectionString;
 		}
 		public ApplicationDbContext CreateDatabaseContext()
 		{

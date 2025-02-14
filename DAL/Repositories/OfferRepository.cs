@@ -11,7 +11,7 @@ namespace DAL.Repositories
 			
 		}
 
-		public async Task<List<Offer>> GetOffersByRecepientId(long id)
+		public async Task<List<Offer>> GetOffersByRecepientId(Guid id)
 		{
 			using (var context = CreateDatabaseContext())
 			{
@@ -21,7 +21,7 @@ namespace DAL.Repositories
 			}
 		}
 
-		public async Task<List<Offer>> GetOffersBySenderId(long id)
+		public async Task<List<Offer>> GetOffersBySenderId(Guid id)
 		{
 			using (var context = CreateDatabaseContext())
 			{

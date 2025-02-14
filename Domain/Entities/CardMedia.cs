@@ -1,14 +1,15 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using Domain.Abstractions;
 
 namespace Domain.Entities
 {
-	public class CardMedia : IDbEntity
+    public class CardMedia : IDbEntity
 	{
 		[DatabaseGenerated(DatabaseGeneratedOption.None)]
-		public long Id { get; set; }
+		public Guid Id { get; set; }
 		public byte[] Image { get; set; }
 
-		public long GetPrimaryKey()
+		public Guid GetPrimaryKey()
 		{
 			return Id;
 		}

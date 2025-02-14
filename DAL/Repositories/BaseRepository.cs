@@ -1,10 +1,10 @@
 ﻿using DAL.Interfaces;
-using Domain.Entities;
+using Domain.Abstractions;
 using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Repositories
 {
-	public class BaseRepository<T> : IRepository<T> where T : class
+    public class BaseRepository<T> : IRepository<T> where T : class
 	{
 		private readonly IContextManager _contextManager;
 		protected BaseRepository(IContextManager contextManager)
@@ -70,7 +70,7 @@ namespace DAL.Repositories
 			if (iDbEntity == null)
 				throw new ArgumentException("entity should be IDbEntity type", "entity");
 
-			return iDbEntity.GetPrimaryKey() == 0 ? await Add(entity) : await Update(entity);
+			return iDbEntity.GetPrimaryKey() == Guid.Empty ? await Add(entity) : await Update(entity);
 
 		}
 		public async Task<T> Update(T entity)

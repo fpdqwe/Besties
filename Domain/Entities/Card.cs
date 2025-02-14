@@ -1,17 +1,13 @@
-﻿using Domain.Enums;
-using System.ComponentModel.DataAnnotations;
+﻿using Domain.Abstractions;
+using Domain.Enums;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
-using System.Resources;
-using System.Text;
 
 namespace Domain.Entities
 {
-	public class Card : IDbEntity
+    public class Card : IDbEntity
 	{
 		[DatabaseGenerated(DatabaseGeneratedOption.None)]
-		public long Id { get; set; }
+		public Guid Id { get; set; } = Guid.NewGuid();
 		public string? Name { get; set; }
 		public int Age { get; set; } = -1;
 		public Gender Gender { get; set; }
@@ -23,6 +19,7 @@ namespace Domain.Entities
 		public bool HealthyMode { get; set; } = false;
 		public bool IsActive { get; set; } = false;
 		public DateTime? LastActivationDate { get; set; }
+		[ForeignKey(nameof(Id))]
 		public User Owner { get; set; }
 		public List<Comment> Comments { get; set; }
 
@@ -40,7 +37,7 @@ namespace Domain.Entities
 			if (IsDrinking != card.IsDrinking) return false;
 			return true;
 		}
-		public long GetPrimaryKey()
+		public Guid GetPrimaryKey()
 		{
 			return Id;
 		}

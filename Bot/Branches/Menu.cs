@@ -36,7 +36,7 @@ namespace Bot.Branches
 		{
 			if (unit.Update.Message.From.Username != null)
 			{
-				await unit.Client.SendTextMessageAsync(unit.Id, $"Привет, {unit.Chat.User.Username}!");
+				await unit.Client.SendTextMessageAsync(unit.Id, $"Привет, {unit.Chat.User.Name}!");
 			}
 			else
 			{

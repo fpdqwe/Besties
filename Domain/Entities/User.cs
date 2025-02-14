@@ -1,21 +1,25 @@
-﻿using Domain.Enums;
+﻿using Domain.Abstractions;
+using Domain.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain.Entities
 {
-	public class User : IDbEntity
+    public class User : IDbEntity
 	{
-		[DatabaseGenerated(DatabaseGeneratedOption.None)]
-		public long Id { get; set; }
-		[Required]
-		public string Username { get; set; }
-		[Required]
-		public ChatMode ChatMode { get; set; }
+		[Key]
+		public Guid Id { get; set; } = Guid.NewGuid();
+		[Required, MaxLength(50)]
+		public string Name { get; set; }
+		public string Password { get; set; }
+		public DateTime DateRegistered { get; set; } = DateTime.UtcNow;
+		public long TelegramId { get; set; }
+		public string EmailAddress { get; set; }
+		public string PhoneNumber { get; set; }
+		[ForeignKey(nameof(Id))]
 		public Card Card { get; set; }
-		public double Rating { get; set; }
 
-		public long GetPrimaryKey()
+		public Guid GetPrimaryKey()
 		{
 			return Id;
 		}
